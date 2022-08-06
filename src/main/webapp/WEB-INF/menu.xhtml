@@ -1,0 +1,22 @@
+<ui:composition 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:pm="http://primefaces.org/morpheus">
+
+    <div class="layout-sidebar">
+        <pm:tabMenu id="tabMenu">
+            <pm:tab id="tab1" icon="pi pi-folder-open" title="FEATURES">
+                <h:form id="menuform">
+                    <pm:menu widgetVar="MorpheusMenuWidget">
+                        <p:menuitem id="m_dashboard" value="Dashboard" icon="pi pi-fw pi-home" outcome="/index"/>
+                        <p:menuitem id="m_compania" value="Compañia" icon="pi pi-fw pi-builder" outcome="/compania"/>
+                    </pm:menu>
+                </h:form>
+            </pm:tab>
+        </pm:tabMenu>        
+    </div>
+
+</ui:composition>    

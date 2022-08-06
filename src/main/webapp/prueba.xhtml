@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        
+        <div class="card crud-demo">
+            <h:form id="form">
+                <p:growl id="messages" showDetail="true" />
+
+                <p:toolbar>
+                    <p:toolbarGroup>
+                        <p:commandButton value="New" icon="pi pi-plus" actionListener="#{companyManageBeans.mostrarDialog()}"
+                                         update=":dialogs:manage-product-content" oncomplete="PF('managecompanyDialog').show()"
+                                         styleClass="ui-button-success" style="margin-right: .5rem">
+                            <p:resetInput target=":dialogs:manage-product-content" />
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <p:dataTable id="dtCompany" widgetVar="companyTable" var="company" value="#{companyManageBeans.listaCompany}"
+                             reflow="true" styleClass="products-table" selection="#{companyManageBeans.selectedCompanys}"
+                             rowKey="#{company.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                    <f:facet name="header">
+                        <div class="products-table-header">
+                            <span style="font-weight: bold">PRODUCTS</span> <span
+                                class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i> <p:inputText
+                                    id="globalFilter" onkeyup="PF('companyTable').filter()" placeholder="Search" />
+                            </span>
+
+                        </div>
+                    </f:facet>
+
+
+                    <p:column selectionMode="multiple" exportable="false"></p:column>
+
+                    <p:column headerText="Code" sortBy="#{company.codeCompany}" filterBy="#{company.codeCompany}">
+                        <h:outputText value="#{company.codeCompany}" />
+                    </p:column>
+                    <p:column headerText="Name" sortBy="#{company.name}" filterBy="#{company.name}">
+                        <h:outputText value="#{company.name}" />
+                    </p:column>
+                    <p:column headerText="Ruc" sortBy="#{company.ruc}" filterBy="#{company.ruc}">
+                        <h:outputText value="#{company.ruc}" >
+                        </h:outputText>
+                    </p:column>
+                    <p:column headerText="Correo" sortBy="#{company.address}" filterBy="#{company.address}">
+                        <h:outputText value="#{company.address}" />
+                    </p:column>
+            
+                    <p:column exportable="false">
+                        <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-product-content"
+                                         oncomplete="PF('managecompanyDialog').show()"
+                                         styleClass="edit-button rounded-button ui-button-success" process="@this">
+                            <f:setPropertyActionListener value="#{company}" target="#{companyManageBeans.companyselect}" />
+                            <p:resetInput target=":dialogs:manage-product-content" />
+                        </p:commandButton>
+                        <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
+                                         oncomplete="PF('deleteProductDialog').show()">
+                        </p:commandButton>
+                        
+                        
+                        
+                        
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+
+            <h:form id="dialogs">
+                <p:dialog header="Product Details" showEffect="fade" modal="true" widgetVar="managecompanyDialog"
+                          responsive="true">
+                    <p:outputPanel id="manage-product-content" class="ui-fluid">
+                        <p:outputPanel rendered="#{not empty companyManageBeans.company}">
+                            <div class="field">
+                                <p:outputLabel for="name">Name</p:outputLabel>
+                                <p:inputText id="name" value="#{companyManageBeans.company.name}" required="true" />
+                            </div>
+                            <div class="field">
+                                <p:outputLabel for="ruc">Ruc</p:outputLabel>
+                                <p:inputTextarea id="ruc" value="#{companyManageBeans.company.ruc}" />
+                            </div>
+                            <div class="formgrid grid">
+                                <div class="field col">
+                                    <p:outputLabel for="phone">Phone</p:outputLabel>
+                                    <p:inputNumber id="phone" value="#{companyManageBeans.company.phone}"/>
+                                </div>
+                                <div class="field col">
+                                    <p:outputLabel for="address">Address</p:outputLabel>
+                                    <p:inputNumber id="address" value="#{companyManageBeans.company.address}"/>
+                                </div>
+                               
+                            </div>
+                        </p:outputPanel>
+                    </p:outputPanel>
+
+                    <f:facet name="footer">
+                        <p:commandButton value="Save" icon="pi pi-check" actionListener="#{companyManageBeans.guardarCompany}"
+                                         update="manage-product-content" process="manage-product-content @this" />
+                        <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('managecompanyDialog').hide()"
+                                         class="ui-button-secondary" type="button" />
+                    </f:facet>
+                </p:dialog>
+
+                <p:confirmDialog widgetVar="deleteProductDialog" showEffect="fade" width="300"
+                                 message="Delete the product?" header="Confirm" severity="warn">
+                    <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{companyManageBeans.eliminarCompany(company.ruc)}"
+                                     process="@this" oncomplete="PF('deleteProductDialog').hide()" />
+                    <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                                     onclick="PF('deleteProductDialog').hide()" />
+                </p:confirmDialog>
+
+                <p:confirmDialog global="true" showEffect="fade" width="300">
+                    <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                    <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                                     icon="pi pi-times" />
+                </p:confirmDialog>
+            </h:form>
+        </div>
+
+    </h:body>
+</html>
+
