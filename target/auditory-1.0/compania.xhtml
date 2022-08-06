@@ -14,7 +14,7 @@
 
             <p:toolbar>
                 <p:toolbarGroup>
-                    <p:commandButton value="New" icon="pi pi-plus" actionListener="#{companyManageBeans.mostrarDialog()}"
+                    <p:commandButton value="New" icon="pi pi-plus" actionListener="#{companyManageBeans.cancelar()}"
                                      update=":dialogs:manage-product-content" oncomplete="PF('managecompanyDialog').show()"
                                      styleClass="ui-button-success" style="margin-right: .5rem">
                         <p:resetInput target=":dialogs:manage-product-content" />
@@ -38,8 +38,10 @@
                 <p:column headerText="Correo" sortBy="#{company.address}" filterBy="#{company.address}">
                     <h:outputText value="#{company.address}" />
                 </p:column>
-
-                <p:column exportable="false">
+                <p:column headerText="Status" sortBy="#{company.status}" filterBy="#{company.status}" style="text-align: center">
+                    <p:selectBooleanCheckbox value="#{company.status}" disabled="true" style="color: black"/>
+                </p:column>
+                <p:column exportable="false" width="70px" style="text-align: center">
                     <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-product-content_u"
                                      oncomplete="PF('managecompanyDialog_u').show()"
                                      styleClass="edit-button rounded-button ui-button-success" process="@this">
@@ -86,7 +88,7 @@
                                 <p:outputLabel for="address">Direccion</p:outputLabel>
                                 <p:inputText id="address" value="#{companyManageBeans.company.address}" required="true"/>
                             </div>
-                            
+
                         </div>
 
                     </p:outputPanel>
@@ -108,27 +110,33 @@
                 <p:outputPanel id="manage-product-content_u" class="ui-fluid">
                     <p:outputPanel rendered="#{not empty companyManageBeans.companyselect}">
                         <div class="grid formgrid">
-                            <div class="col-12 mb-2 lg:col-5 mb-lg-0">
-                                <p:outputLabel for="rucM">Ruc- No editable</p:outputLabel>
-                                <p:inputText id="rucM" value="#{companyManageBeans.companyselect.ruc}" readonly="#{facesContext.renderResponse}"/>
+                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                                <p:outputLabel for="rucM">Ruc</p:outputLabel>
+                                <p:inputText id="rucM" value="#{companyManageBeans.companyselect.ruc}" disabled="#{facesContext.renderResponse}"/>
                             </div>
-                            <div class="col-12 mb-2 lg:col-6 mb-lg-0">
+                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
                                 <p:outputLabel for="nameM">Nombre</p:outputLabel>
                                 <p:inputText id="nameM" value="#{companyManageBeans.companyselect.name}" required="true"  />
                             </div>
 
                         </div>    
                         <div class="grid formgrid">
-                            <div class="col-9 mb-2 lg:col-4 mb-lg-0">
+                            <div class="col-9 mb-2 lg:col-12 mb-lg-0">
                                 <p:outputLabel for="phoneM">Contacto</p:outputLabel>
                                 <p:inputText id="phoneM" value="#{companyManageBeans.companyselect.phone}" required="true"  />
                             </div>
-                            <div class="col-12 mb-2 lg:col-7 mb-lg-0">
+                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
                                 <p:outputLabel for="addressM">Direccion</p:outputLabel>
                                 <p:inputText id="addressM" value="#{companyManageBeans.companyselect.address}" required="true"/>
                             </div>
                         </div>
-
+                        <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                            <p:outputLabel for="statusM">Status</p:outputLabel>
+                            <br/>
+                            <p:toggleSwitch id="statusM" value="#{companyManageBeans.companyselect.status}">
+                                <p:ajax event="change" update="@this"/>
+                            </p:toggleSwitch>
+                        </div>
                     </p:outputPanel>
 
                 </p:outputPanel>

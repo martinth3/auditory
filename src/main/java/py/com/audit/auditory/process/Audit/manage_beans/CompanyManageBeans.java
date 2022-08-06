@@ -3,19 +3,16 @@ package py.com.audit.auditory.process.Audit.manage_beans;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.logging.Level;
+import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import org.primefaces.PrimeFaces;
-import org.primefaces.event.ToggleEvent;
 import org.primefaces.model.FilterMeta;
-import org.primefaces.model.Visibility;
-import py.com.audit.auditory.process.Audit.model.CompanyModel;
+import py.com.audit.auditory.process.Audit.model.GenericEJB;
 import py.com.audit.auditory.process.auditexception.AuditEJBException;
 import py.com.audit.auditory.process.entity.Company;
 
@@ -28,8 +25,8 @@ import py.com.audit.auditory.process.entity.Company;
 public class CompanyManageBeans implements Serializable {
 
     @EJB
-    private CompanyModel companyModel;
-    
+    private GenericEJB gejb;
+
     private Company company = new Company();
     private Company companyselect = new Company();
     private Company companyAEliminar;
@@ -61,7 +58,6 @@ public class CompanyManageBeans implements Serializable {
     }
 
     public void setSelectedCompanys(List<Company> selectedCompanys) {
-        System.out.println("selectedCompanys --> " + selectedCompanys);
         this.selectedCompanys = selectedCompanys;
     }
 
@@ -90,7 +86,11 @@ public class CompanyManageBeans implements Serializable {
     }
 
     public List<Company> getCompanyFiltered() throws AuditEJBException {
-        companyFiltered = companyModel.listarCompany();
+        try {
+            companyFiltered = gejb.getEM().createNamedQuery("Company.findAll", Company.class).getResultList();
+        } catch (Exception e) {
+            e.printStackTrace(System.err);
+        }
         return companyFiltered;
     }
 
@@ -98,19 +98,19 @@ public class CompanyManageBeans implements Serializable {
         this.companyFiltered = companyFiltered;
     }
 
-    public CompanyModel getCompanyModel() {
-        if (companyModel == null) {
-            companyModel = new CompanyModel();
-        }
-        return companyModel;
-    }
-
-    public void setCompanyModel(CompanyModel companyModel) {
-        this.companyModel = companyModel;
-    }
-
     public List<Company> getListaCompany() {
+        if (listaCompany == null || listaCompany.isEmpty()) {
+            try {
+                listaCompany = gejb.getEM().createNamedQuery("Company.findAll", Company.class).getResultList();
+            } catch (Exception e) {
+                e.printStackTrace(System.err);
+            }
+        }
         return listaCompany;
+    }
+
+    public void setListaCompany(List<Company> listaCompany) {
+        this.listaCompany = listaCompany;
     }
 
     public Company getCompany() {
@@ -132,27 +132,17 @@ public class CompanyManageBeans implements Serializable {
     @PostConstruct
     public void init() {
         filterBy = new ArrayList<>();
-
         listaCompany = new ArrayList<>();
-
-        if (listaCompany == null || listaCompany.isEmpty()) {
-            System.out.println("Cargando Lista de lista Company");
-
-            try {
-                listaCompany = companyModel.listarCompany();
-
-            } catch (Exception ex) {
-                java.util.logging.Logger.getLogger(CompanyManageBeans.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        }
-
+        getListaCompany();
     }
 
     public void guardarCompany() throws AuditEJBException {
         try {
-            companyModel.insertarCompany(company);
-            listaCompany = companyModel.listarCompany();
+            company.setDateCreate(new Date());
+            company.setStatus(true);
+            gejb.insert(company);
+            listaCompany = null;
+            getListaCompany();
             cancelar();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Compañia agregada con exito"));
             PrimeFaces.current().executeScript("PF('managecompanyDialog').hide()");
@@ -167,8 +157,9 @@ public class CompanyManageBeans implements Serializable {
 
     public void editarCompany() throws AuditEJBException {
         try {
-            companyModel.EditCompany(companyselect);
-            listaCompany = companyModel.listarCompany();
+            gejb.update(companyselect);
+            listaCompany = null;
+            getListaCompany();
             cancelar();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Compañia editada con exito"));
             PrimeFaces.current().executeScript("PF('managecompanyDialog_u').hide()");
@@ -180,53 +171,23 @@ public class CompanyManageBeans implements Serializable {
         }
     }
 
-    public void eliminarCompany(String ruc) throws AuditEJBException {
-        System.out.println("llama aca?");
-        System.out.println("ruc" + ruc);
-        try {
-            companyModel.DeleteCompany(ruc);
-            listaCompany = companyModel.listarCompany();
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Compañia eliminada con exito"));
-            PrimeFaces.current().ajax().update("form:messages", "form:dtCompany");
-
-        } catch (Exception e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "No se ha podido realizar el borrado"));
-            PrimeFaces.current().ajax().update("form:messages", "form:dtCompany");
-        }
-    }
-    
     public void eliminarCompany() throws AuditEJBException {
         try {
-            companyModel.DeleteCompany(companyAEliminar);
-            listaCompany = companyModel.listarCompany();
+            gejb.delete(companyAEliminar);
+            listaCompany = null;
+            getListaCompany();
+            cancelar();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Compañia eliminada con exito"));
             PrimeFaces.current().ajax().update("form:messages", "form:dtCompany");
-
         } catch (Exception e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "No se ha podido realizar el borrado"));
             PrimeFaces.current().ajax().update("form:messages", "form:dtCompany");
         }
     }
-
-   
 
     public void cancelar() {
         company = new Company();
+        companyselect = new Company();
+        companyAEliminar = null;
     }
-
-    public void mostrarDialog() {
-        //agregar logica si es necesario
-
-        PrimeFaces.current().executeScript("PF('wdialogo').show();");
-    }
-
-    public void onRowToggle(ToggleEvent event) {
-        if (event.getVisibility() == Visibility.VISIBLE) {
-            Company company = (Company) event.getData();
-//            if (company.getName() == null) {
-//                product.setOrders(orderService.getOrders((int) (Math.random() * 10)));
-//            }
-        }
-    }
-
 }

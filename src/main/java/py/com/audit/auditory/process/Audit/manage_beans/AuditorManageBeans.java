@@ -130,8 +130,6 @@ public class AuditorManageBeans implements Serializable {
         this.auditors = auditors;
     }
 
-   
-
     @PostConstruct
     public void init() {
         filterBy = new ArrayList<>();
@@ -148,8 +146,8 @@ public class AuditorManageBeans implements Serializable {
                 java.util.logging.Logger.getLogger(AuditorManageBeans.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        
-           if (listaCompanys == null || listaCompanys.isEmpty()) {
+
+        if (listaCompanys == null || listaCompanys.isEmpty()) {
             System.out.println("Cargando Lista de lista compañia");
             try {
                 listaCompanys = auditorModel.listarAllCompany();
@@ -161,21 +159,27 @@ public class AuditorManageBeans implements Serializable {
 
     public void guardarAuditor() throws AuditEJBException {
         try {
+            System.out.println("Entro en el metodo");
             auditorModel.insertarAuditor(auditor);
             listaAuditor = auditorModel.listarAuditor();
-            cancelar();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Auditor agregada con exito"));
             PrimeFaces.current().executeScript("PF('manageauditorDialog').hide()");
             PrimeFaces.current().ajax().update("form:messages", "form:dtAuditor");
-
         } catch (Exception e) {
+            e.printStackTrace(System.err);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "No se ha registrado el dato"));
             PrimeFaces.current().ajax().update("form:messages", "form:dtAuditor");
+            return;
         }
+        cancelar();
     }
 
     public void cancelar() {
+        System.out.println("Cancela la puerquesa");
         auditor = new Auditor();
+        auditor.setCompany(new Company());
+        auditorselect = new Auditor();
+        auditorAeliminar = null;
     }
 
     public void editarAuditor() throws AuditEJBException {

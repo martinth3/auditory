@@ -75,8 +75,8 @@ public class CompanyModel {
 
             StringBuilder sb = new StringBuilder();
             sb.append("UPDATE base.company ");
-            sb.append(" SET name=?1, date_modified=CURRENT_DATE, phone=?2, address=?3 ");
-            sb.append(" WHERE ruc=?4 ");
+            sb.append(" SET name=?1, date_modified=CURRENT_DATE, phone=?2, address=?3 , status=?4");
+            sb.append(" WHERE ruc=?5 ");
             Query q = em.createNativeQuery(sb.toString());
 
             q.setParameter(1, companyselect.getName());
@@ -85,7 +85,9 @@ public class CompanyModel {
             System.out.println("llega al model name" + companyselect.getPhone());
             q.setParameter(3, companyselect.getAddress());
             System.out.println("llega al model name" + companyselect.getAddress());
-            q.setParameter(4, companyselect.getRuc());
+            q.setParameter(4, companyselect.getStatus());
+            System.out.println("llega al model name" + companyselect.getRuc());
+            q.setParameter(5, companyselect.getRuc());
             System.out.println("llega al model name" + companyselect.getRuc());
             int result = q.executeUpdate();
             System.out.println("result  " + result);
@@ -118,7 +120,7 @@ public class CompanyModel {
 
         }
     }
-    
+
     public boolean DeleteCompany(Company company) throws AuditEJBException {
         try {
             em.remove(em.contains(company) ? company : em.merge(company));
