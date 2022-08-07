@@ -32,11 +32,13 @@
                     <h:outputText value="#{company.name}" />
                 </p:column>
                 <p:column headerText="Ruc" sortBy="#{company.ruc}" filterBy="#{company.ruc}">
-                    <h:outputText value="#{company.ruc}" >
-                    </h:outputText>
+                    <h:outputText value="#{company.ruc}" ></h:outputText>
                 </p:column>
-                <p:column headerText="Correo" sortBy="#{company.address}" filterBy="#{company.address}">
+                <p:column headerText="Direccion" sortBy="#{company.address}" filterBy="#{company.address}">
                     <h:outputText value="#{company.address}" />
+                </p:column>
+                <p:column headerText="Contacto" sortBy="#{company.phone}" filterBy="#{company.phone}">
+                    <h:outputText  value="#{company.phone}" />
                 </p:column>
                 <p:column headerText="Status" sortBy="#{company.status}" filterBy="#{company.status}" style="text-align: center">
                     <p:selectBooleanCheckbox value="#{company.status}" disabled="true" style="color: black"/>
@@ -76,7 +78,8 @@
                             </div>
                             <div class="col-12 mb-2 lg:col-5 mb-lg-0">
                                 <p:outputLabel for="ruc">Ruc</p:outputLabel>
-                                <p:inputText id="ruc" value="#{companyManageBeans.company.ruc}" required="true"/>
+                                <!--                                <p:inputText id="ruc" value="{companyManageBeans.company.ruc}" required="true"/>-->
+                                <p:inputMask id="ruc" value="#{companyManageBeans.company.ruc}" mask="99999999-9" validateMask="true" required="true"/>
                             </div>
                         </div>   
                         <div class="grid formgrid">

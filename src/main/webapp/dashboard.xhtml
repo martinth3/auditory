@@ -1,0 +1,36 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+    <ui:define name="content">
+        <ui:define name="head">
+        <h:outputScript name="js/chart.js" library="demo"/>
+        <script type="text/javascript">
+            $(function () {
+                var salesChart = new Chart(document.getElementById("sales-chart").getContext('2d'), {
+                    type: 'line',
+                    data: {
+                        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+                        datasets: [
+                            {
+                                label: 'First Dataset',
+                                data: [65, 59, 80, 81, 56, 55, 40],
+                                fill: false,
+                                borderColor: '#FFC107'
+                            },
+                            {
+                                label: 'Second Dataset',
+                                data: [28, 48, 40, 19, 86, 27, 90],
+                                fill: false,
+                                borderColor: '#03A9F4'
+                            }
+                        ]
+                    }
+                });
+            });
+        </script>
+    </ui:define>
+    </ui:define>  
+</ui:composition>
