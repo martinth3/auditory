@@ -189,13 +189,15 @@ public class UserRolManageBeans implements Serializable {
     public void guardarUserRol() throws AuditEJBException {
         System.out.println("Entro en metodo guardar");
         try {
-            userrol.setStatus(true);
-            gejb.insert(userrol);
+            //userrol.setStatus(true);
+            //userrol.setUser(user);
+            userrolselect.setStatus(true);
+            gejb.insert(userrolselect);
             listaUserRol = null;
             getListaUserRol();
             cancelar();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Rol agregado con exito"));
-            PrimeFaces.current().executeScript("PF('managerolDialog').hide()");
+            PrimeFaces.current().executeScript("PF('managerolDialog_r').hide()");
             PrimeFaces.current().ajax().update("form:messages", "form:dtRol");
 
         } catch (Exception e) {
@@ -207,7 +209,7 @@ public class UserRolManageBeans implements Serializable {
 
     }
 
-    public void editarRol() throws AuditEJBException {
+    public void editarUserRol() throws AuditEJBException {
         try {
              gejb.update(userrolselect);
             listaUserRol = null;

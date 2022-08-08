@@ -1,0 +1,111 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/template.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:define name="title">
+        Crud riesgo
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="form">
+            <p:growl id="messages" showDetail="true" />
+
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="New" icon="pi pi-plus" actionListener="#{riskManageBeans.cancelar()}"
+                                     update=":dialogs:manage-product-content" oncomplete="PF('manageriskDialog').show()"
+                                     styleClass="ui-button-success" style="margin-right: .5rem">
+                        <p:resetInput target=":dialogs:manage-product-content" />
+                    </p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:dataTable id="dtRisk" widgetVar="riskTable" var="risk" value="#{riskManageBeans.listarisk}"
+                         reflow="true" styleClass="products-table" selection="#{riskManageBeans.selectedrisks}"
+                         rowKey="#{risk.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                <p:column headerText="Code" sortBy="#{risk.code}" filterBy="#{risk.code}">
+                    <h:outputText value="#{risk.code}" />
+                </p:column>
+                <p:column headerText="Name" sortBy="#{risk.description}" filterBy="#{risk.description}">
+                    <h:outputText value="#{risk.description}" />
+                </p:column>
+
+                <p:column exportable="false" width="70px" style="text-align: center">
+                    <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-product-content_u"
+                                     oncomplete="PF('manageriskDialog_u').show()"
+                                     styleClass="edit-button rounded-button ui-button-success" process="@this">
+                        <f:setPropertyActionListener value="#{risk}" target="#{riskManageBeans.riskselect}" />
+                        <p:resetInput target=":dialogs:manage-product-content" />
+                    </p:commandButton>
+                    <!--                    <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
+                                                         actionListener="{companyManageBeans.eliminarCompany(company.ruc)}"  >
+                                            <p:confirm header="Confirmación" message="Desea borrar la información" icon="pi pi-info-circle" />
+                                            <p:resetInput target=":dialogs:manage-product-content" />
+                                        </p:commandButton>-->
+                    <p:commandButton oncomplete="PF('avisoEliminar').show()" icon="pi pi-trash" title="Eliminar" process="@this" class="ui-button-warning rounded-button">
+                        <f:setPropertyActionListener value="#{risk}" target="#{riskManageBeans.riskAEliminar}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:confirmDialog hideEffect="clip" message="¿Esta Seguro que desea Eliminar el registro?" header="Aviso" severity="alert" widgetVar="avisoEliminar">
+            <p:commandButton value="Aceptar" icon="ui-icon-trash" action="#{riskManageBeans.eliminarRisk()}" update=":form :form:messages" oncomplete="PF('avisoEliminar').hide()"/>
+            <p:commandButton value="Cancelar" onclick="PF('avisoEliminar').hide()"/>
+        </p:confirmDialog>
+
+        <h:form id="dialogs">
+            <p:dialog header="Riesgo Add" showEffect="fade" modal="true" widgetVar="manageriskDialog"
+                      responsive="true">
+                <p:outputPanel id="manage-product-content" class="ui-fluid">
+                    <p:outputPanel rendered="#{not empty riskManageBeans.risk}">
+                        <div class="grid formgrid">
+                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                                <p:outputLabel for="descrpcion">Descripcion</p:outputLabel>
+                                <p:inputText id="descrpcion" value="#{riskManageBeans.risk.description}" required="true"  />
+                            </div>
+                        </div>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Save" icon="pi pi-check" actionListener="#{riskManageBeans.guardarRisk}"
+                                     update="manage-product-content" process="manage-product-content @this" >
+
+                        <p:resetInput target=":dialogs:manage-product-content" />
+                    </p:commandButton>
+                    <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageriskDialog').hide()"
+                                     class="ui-button-secondary" type="button" />
+                </f:facet>
+            </p:dialog>
+
+            <p:dialog header="Riesgo Edit" showEffect="fade" modal="true" widgetVar="manageriskDialog_u"
+                      responsive="true">
+                <p:outputPanel id="manage-product-content_u" class="ui-fluid">
+                    <p:outputPanel rendered="#{not empty riskManageBeans.riskselect}">
+                        <div class="grid formgrid">
+                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                                <p:outputLabel for="descrpcionM">Descripcion</p:outputLabel>
+                                <p:inputText id="descrpcionM" value="#{riskManageBeans.riskselect.description}" required="true"/>
+                            </div>
+                        </div>
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Save" icon="pi pi-check" actionListener="#{riskManageBeans.editarRisk}"
+                                     update="manage-product-content_u" process="manage-product-content_u @this" />
+                    <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageriskDialog_u').hide()"
+                                     class="ui-button-secondary" type="button" />
+                </f:facet>
+            </p:dialog>
+
+            <p:confirmDialog global="true" showEffect="fade" width="300">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                                 icon="pi pi-times" />
+            </p:confirmDialog>
+        </h:form>            
+    </ui:define>
+</ui:composition>

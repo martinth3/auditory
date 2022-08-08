@@ -11,7 +11,6 @@
     <ui:define name="content">
         <h:form id="form">
             <p:growl id="messages" showDetail="true" />
-
             <p:toolbar>
                 <p:toolbarGroup>
                     <p:commandButton value="New rol" icon="pi pi-plus" actionListener="#{rolManageBeans.cancelar()}"
@@ -26,7 +25,6 @@
                     </p:commandButton>
                 </p:toolbarGroup>
             </p:toolbar>
-
             <p:dataTable id="dtRol" widgetVar="rolTable" var="roluser" value="#{userrolManageBeans.listaUserRol}"
                          reflow="true" styleClass="products-table" selection="#{userrolManageBeans.selectedUserRoles}"
                          rowKey="#{roluser.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
@@ -40,20 +38,14 @@
                     <p:selectBooleanCheckbox value="#{roluser.status}" disabled="true" style="color: black"/>
                 </p:column>
                 <p:column exportable="false" width="70px" style="text-align: center">
-                    <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-product-content_u"
-                                     oncomplete="PF('managerolDialog_u').show()"
-                                     styleClass="edit-button rounded-button ui-button-success" process="@this">
-                        <f:setPropertyActionListener value="#{rol}" target="#{rolManageBeans.rolselect}" />
-                        <p:resetInput target=":dialogs:manage-product-content" />
-                    </p:commandButton>
                     <p:commandButton oncomplete="PF('avisoEliminar').show()" icon="pi pi-trash" title="Eliminar" process="@this" class="ui-button-warning rounded-button">
-                        <f:setPropertyActionListener value="#{rol}" target="#{rolManageBeans.rolAEliminar}"/>
+                        <f:setPropertyActionListener value="#{roluser}" target="#{userrolManageBeans.userrolAEliminar}"/>
                     </p:commandButton>
                 </p:column>
             </p:dataTable>
         </h:form>
         <p:confirmDialog hideEffect="clip" message="¿Esta Seguro que desea Eliminar el registro?" header="Aviso" severity="alert" widgetVar="avisoEliminar">
-            <p:commandButton value="Aceptar" icon="ui-icon-trash" action="#{rolManageBeans.eliminarRol()}" update=":form :form:messages" oncomplete="PF('avisoEliminar').hide()"/>
+            <p:commandButton value="Aceptar" icon="ui-icon-trash" action="#{userrolManageBeans.eliminarRol()}" update=":form :form:messages" oncomplete="PF('avisoEliminar').hide()"/>
             <p:commandButton value="Cancelar" onclick="PF('avisoEliminar').hide()"/>
         </p:confirmDialog>
 
@@ -99,7 +91,7 @@
                                 <p:ajax event="change" update="@this"/>
                             </p:selectOneMenu>
                         </div>
-                        
+
                         <div class="col-12 mb-2 lg:col-12 mb-lg-0">
                             <h:outputText value="Roles"/>
                             <p:selectOneMenu value="#{userrolManageBeans.userrolselect.rol}" converter="rolConverter"  filter="true" >
@@ -112,7 +104,7 @@
                     </p:outputPanel>
                 </p:outputPanel>
                 <f:facet name="footer">
-                    <p:commandButton value="Save locula" icon="pi pi-check" actionListener="#{userrolManageBeans.guardarUserRol}"
+                    <p:commandButton value="Save" icon="pi pi-check" actionListener="#{userrolManageBeans.guardarUserRol}"
                                      update="manage-product-content_r" process="manage-product-content_r @this" >
 
                         <p:resetInput target=":dialogs:manage-product-content_r" />
@@ -122,39 +114,7 @@
                 </f:facet>
 
             </p:dialog>
-            <p:dialog header="rol Edit" showEffect="fade" modal="true" widgetVar="managerolDialog_u"
-                      responsive="true">
-                <p:outputPanel id="manage-product-content_u" class="ui-fluid">
-                    <p:outputPanel rendered="#{not empty rolManageBeans.rolselect}">
-                        <div class="grid formgrid">
-                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
-                                <p:outputLabel for="nameM">Nombre</p:outputLabel>
-                                <p:inputText id="nameM" value="#{rolManageBeans.rolselect.name}" required="true"  />
-                            </div>
-                        </div>
-                        <div class="col-12 mb-2 lg:col-12 mb-lg-0">
-                            <p:outputLabel for="descripcionM">Descripcion</p:outputLabel>
-                            <p:inputText id="descripcionM" value="#{rolManageBeans.rolselect.description}" required="true"/>
-                        </div>
-                        <div class="col-12 mb-2 lg:col-12 mb-lg-0">
-                            <p:outputLabel for="statusM">Status</p:outputLabel>
-                            <br/>
-                            <p:toggleSwitch id="statusM"  value="#{rolManageBeans.rolselect.status}"  >
-                                <p:ajax event="change" update="@this"/>
-
-                            </p:toggleSwitch>
-                        </div>
-                    </p:outputPanel>
-
-                </p:outputPanel>
-
-                <f:facet name="footer">
-                    <p:commandButton value="Save" icon="pi pi-check" actionListener="#{rolManageBeans.editarRol()}"
-                                     update="manage-product-content_u" process="manage-product-content_u @this" />
-                    <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageROLDialog_u').hide()"
-                                     class="ui-button-secondary" type="button" />
-                </f:facet>
-            </p:dialog>
+           
 
             <p:confirmDialog global="true" showEffect="fade" width="300">
                 <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
