@@ -2,6 +2,6 @@
 *.jpeg
 *.png
 *.bmp
-target
-/home/ctm/projects/auditory/auditory-ctm/src/main/resources/META-INF/persistence.xml
+target/
+src/main/resources/META-INF/persistence.xml
 *.svg
