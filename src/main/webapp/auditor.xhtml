@@ -5,10 +5,27 @@
                 template="/WEB-INF/template.xhtml"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <script type="text/javascript">
+        function validarEmail(elemento) {
+
+            var texto = document.getElementById(elemento.id).value;
+            var regex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i;
+
+            if (!regex.test(texto)) {
+                document.getElementById("resultado").innerHTML = "Correo invalido";
+            } else {
+                document.getElementById("resultado").innerHTML = "";
+            }
+
+        }
+    </script>
+
     <ui:define name="title">
         Crud compañia
     </ui:define>
     <ui:define name="content">
+
         <h:form id="form">
             <p:growl id="messages" showDetail="true" />
 
@@ -37,7 +54,7 @@
                     <h:outputText value="#{auditor.phone}" />
                 </p:column>
                 <p:column headerText="Correo" sortBy="#{auditor.mail}" filterBy="#{auditor.mail}">
-                    <h:outputText value="#{auditor.mail}" />
+                    <h:outputText  value="#{auditor.mail}"  />
                 </p:column>
                 <p:column headerText="Direccion" sortBy="#{auditor.address}" filterBy="#{auditor.address}">
                     <h:outputText value="#{auditor.address}" />
@@ -54,12 +71,6 @@
                         <f:setPropertyActionListener value="#{auditor}" target="#{auditorManageBeans.auditorselect}" />
                         <p:resetInput target=":dialogs:manage-product-content" />
                     </p:commandButton>
-                    <!--                         <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
-                                                         actionListener="{companyManageBeans.eliminarCompany(company.ruc)}"  >
-                                            <p:confirm header="Confirmación" message="Desea borrar la información" icon="pi pi-info-circle" />
-                                             <p:resetInput target=":dialogs:manage-product-content" />
-                                        </p:commandButton>-->
-
                     <p:commandButton oncomplete="PF('avisoEliminar').show()" icon="pi pi-trash" title="Eliminar" process="@this" class="ui-button-warning rounded-button">
                         <f:setPropertyActionListener value="#{auditor}" target="#{auditorManageBeans.auditorAeliminar}"/>
                     </p:commandButton>
@@ -73,40 +84,45 @@
 
         <h:form id="dialogs">
             <p:dialog header="Auditor Add" showEffect="fade" modal="true" widgetVar="manageauditorDialog"
-                      responsive="true">
+                      responsive="true" width="500" height="370" closable="false">
                 <p:outputPanel id="manage-product-content" class="ui-fluid">
                     <p:outputPanel rendered="#{not empty auditorManageBeans.auditor}">
                         <div class="grid formgrid">
-                            <div class="col-12 mb-2 lg:col-2 mb-lg-0">
+                            <div class="col-10 mb-2 lg:col-10 mb-lg-0">
                                 <p:outputLabel for="nro_docM">Nro de cedula</p:outputLabel>
-                                <p:inputText id="nro_docM" value="#{auditorManageBeans.auditor.nroDoc}" required="true"  />
+                                <p:inputText id="nro_docM" value="#{auditorManageBeans.auditor.nroDoc}"  required="true"  />
                             </div>
-                            <div class="col-12 mb-2 lg:col-4 mb-lg-0">
+                            <div class="col-10 mb-2 lg:col-10 mb-lg-0">
                                 <p:outputLabel for="nameM">Nombre</p:outputLabel>
                                 <p:inputText id="nameM" value="#{auditorManageBeans.auditor.name}" required="true"/>
                             </div>
-                            <div class="col-12 mb-2 lg:col-4 mb-lg-0">
+                            <div class="col-10 mb-2 lg:col-10 mb-lg-0">
                                 <p:outputLabel for="surnameM">Apellido</p:outputLabel>
                                 <p:inputText id="surnameM" value="#{auditorManageBeans.auditor.surname}" required="true"/>
                             </div>
                         </div>   
                         <div class="grid formgrid">
-                            <div class="col-9 mb-2 lg:col-2 mb-lg-0">
+                            <div class="col-10 mb-2 lg:col-10 mb-lg-0">
                                 <p:outputLabel for="phoneM">Contacto</p:outputLabel>
-                                <p:inputText id="phoneM" value="#{auditorManageBeans.auditor.phone}" required="true"  />
+                                <p:inputMask id="phoneM" value="#{auditorManageBeans.auditor.phone}" mask="(+999) 99 999 9999" validateMask="true" />
                             </div>
-                            <div class="col-9 mb-2 lg:col-4 mb-lg-0">
+                            <div class="col-10 mb-2 lg:col-10 mb-lg-0">
                                 <p:outputLabel for="mailM">Correo</p:outputLabel>
-                                <p:inputText id="mailM" value="#{auditorManageBeans.auditor.mail}" required="true"  />
+                                <p:inputText id="mailM" value="#{auditorManageBeans.auditor.mail}" required="true" validatorMessage="formato de correo invalido">
+                                    <f:validateRegex
+                                        pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                               <p:message for="mailM" />
+                                </p:inputText>
+                                    
                             </div>
-                            <div class="col-12 mb-2 lg:col-3 mb-lg-0">
+                            <div class="col-10 mb-2 lg:col-10 mb-lg-0">
                                 <p:outputLabel for="addressM">Direccion</p:outputLabel>
                                 <p:inputText id="addressM" value="#{auditorManageBeans.auditor.address}" required="true"/>
                             </div>
-                            <div class="col-12 mb-2 lg:col-3 mb-lg-0">
-                                <h:outputText value="Choose player"/>
+                            <div class="col-10 mb-2 lg:col-10 mb-lg-0">
+                                <h:outputText value="Compañia"/>
                                 <p:selectOneMenu value="#{auditorManageBeans.auditor.company}" converter="companyConverter">
-                                    <f:selectItem itemLabel="Elige" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="Seleccione la compañia" itemValue="#{null}" noSelectionOption="true"/>
                                     <f:selectItems value="#{auditorManageBeans.listaCompanys}" var="company" 
                                                    itemValue="#{company}" itemLabel="#{company.name}"/>
                                     <p:ajax event="change" update="@this"/>
@@ -117,6 +133,7 @@
                 </p:outputPanel>
 
                 <f:facet name="footer">
+
                     <p:commandButton value="Save" icon="pi pi-check" actionListener="#{auditorManageBeans.guardarAuditor()}"
                                      update="manage-product-content" process="manage-product-content @this"/>
                     <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageauditorDialog').hide()" class="ui-button-secondary"/>
@@ -155,12 +172,13 @@
                                 <p:inputText id="address" value="#{auditorManageBeans.auditorselect.address}" required="true"/>
                             </div>
                             <div class="col-12 mb-2 lg:col-3 mb-lg-0">
-                                <h:outputText value="Choose player"/>
+                                <h:outputText value="Compañia"/>
                                 <p:selectOneMenu value="#{auditorManageBeans.auditorselect.company}" converter="companyConverter">
-                                    <f:selectItem itemLabel="Elige" itemValue="#{null}" noSelectionOption="true"/>
+                                    <f:selectItem itemLabel="seleccione" itemValue="#{null}" noSelectionOption="true"/>
                                     <f:selectItems value="#{auditorManageBeans.listaCompanys}" var="company" 
                                                    itemValue="#{company}" itemLabel="#{company.name}"/>
-                                    <p:ajax event="change" update="@this"/>
+                                    <p:ajax event="change" update="@this" listener="#{auditorManageBeans.addMessage}"/>
+
                                 </p:selectOneMenu>
                             </div>
                         </div>

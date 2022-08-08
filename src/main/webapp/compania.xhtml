@@ -32,11 +32,13 @@
                     <h:outputText value="#{company.name}" />
                 </p:column>
                 <p:column headerText="Ruc" sortBy="#{company.ruc}" filterBy="#{company.ruc}">
-                    <h:outputText value="#{company.ruc}" >
-                    </h:outputText>
+                    <h:outputText value="#{company.ruc}" ></h:outputText>
                 </p:column>
-                <p:column headerText="Correo" sortBy="#{company.address}" filterBy="#{company.address}">
+                <p:column headerText="Direccion" sortBy="#{company.address}" filterBy="#{company.address}">
                     <h:outputText value="#{company.address}" />
+                </p:column>
+                <p:column headerText="Contacto" sortBy="#{company.phone}" filterBy="#{company.phone}">
+                    <h:outputText  value="#{company.phone}" />
                 </p:column>
                 <p:column headerText="Status" sortBy="#{company.status}" filterBy="#{company.status}" style="text-align: center">
                     <p:selectBooleanCheckbox value="#{company.status}" disabled="true" style="color: black"/>
@@ -70,25 +72,26 @@
                 <p:outputPanel id="manage-product-content" class="ui-fluid">
                     <p:outputPanel rendered="#{not empty companyManageBeans.company}">
                         <div class="grid formgrid">
-                            <div class="col-12 mb-2 lg:col-6 mb-lg-0">
+                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
                                 <p:outputLabel for="name">Nombre</p:outputLabel>
                                 <p:inputText id="name" value="#{companyManageBeans.company.name}" required="true"  />
                             </div>
-                            <div class="col-12 mb-2 lg:col-5 mb-lg-0">
+
+                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
                                 <p:outputLabel for="ruc">Ruc</p:outputLabel>
-                                <p:inputText id="ruc" value="#{companyManageBeans.company.ruc}" required="true"/>
+                                <!--  <p:inputText id="ruc" value="{companyManageBeans.company.ruc}" required="true"/>-->
+                                <p:inputMask id="ruc" value="#{companyManageBeans.company.ruc}" mask="99999999-9" validateMask="true" required="true"/>
                             </div>
-                        </div>   
+                        </div>
                         <div class="grid formgrid">
-                            <div class="col-9 mb-2 lg:col-4 mb-lg-0">
+                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
                                 <p:outputLabel for="phone">Contacto</p:outputLabel>
-                                <p:inputText id="phone" value="#{companyManageBeans.company.phone}" required="true"  />
+                                <p:inputMask id="phone" value="#{companyManageBeans.company.phone}" mask="(+999) 99 999 9999" validateMask="true" />
                             </div>
-                            <div class="col-12 mb-2 lg:col-7 mb-lg-0">
+                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
                                 <p:outputLabel for="address">Direccion</p:outputLabel>
                                 <p:inputText id="address" value="#{companyManageBeans.company.address}" required="true"/>
                             </div>
-
                         </div>
 
                     </p:outputPanel>
@@ -123,7 +126,7 @@
                         <div class="grid formgrid">
                             <div class="col-9 mb-2 lg:col-12 mb-lg-0">
                                 <p:outputLabel for="phoneM">Contacto</p:outputLabel>
-                                <p:inputText id="phoneM" value="#{companyManageBeans.companyselect.phone}" required="true"  />
+                                <p:inputMask id="phoneM" value="#{companyManageBeans.companyselect.phone}" mask="(+999) 99 999 9999" validateMask="true" />
                             </div>
                             <div class="col-12 mb-2 lg:col-12 mb-lg-0">
                                 <p:outputLabel for="addressM">Direccion</p:outputLabel>
@@ -133,8 +136,10 @@
                         <div class="col-12 mb-2 lg:col-12 mb-lg-0">
                             <p:outputLabel for="statusM">Status</p:outputLabel>
                             <br/>
-                            <p:toggleSwitch id="statusM" value="#{companyManageBeans.companyselect.status}">
+                            <p:toggleSwitch id="statusM"  value="#{companyManageBeans.companyselect.status}"  >
+
                                 <p:ajax event="change" update="@this"/>
+
                             </p:toggleSwitch>
                         </div>
                     </p:outputPanel>
