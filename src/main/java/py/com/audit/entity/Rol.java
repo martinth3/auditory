@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -146,3 +147,146 @@ public class Rol implements Serializable {
     }
     
 }
+=======
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package py.com.audit.entity;
+
+import java.io.Serializable;
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import javax.xml.bind.annotation.XmlRootElement;
+
+/**
+ *
+ * @author crixx
+ */
+@Entity
+@Table(schema = "base",name = "rol")
+@XmlRootElement
+@NamedQueries({
+    @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),
+    @NamedQuery(name = "Rol.findById", query = "SELECT r FROM Rol r WHERE r.id = :id"),
+    @NamedQuery(name = "Rol.findByName", query = "SELECT r FROM Rol r WHERE r.name = :name"),
+    @NamedQuery(name = "Rol.findByCode", query = "SELECT r FROM Rol r WHERE r.code = :code"),
+    @NamedQuery(name = "Rol.findByDescription", query = "SELECT r FROM Rol r WHERE r.description = :description"),
+    @NamedQuery(name = "Rol.findByStatus", query = "SELECT r FROM Rol r WHERE r.status = :status")})
+public class Rol implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "name")
+    private String name;
+    @Size(max = 255)
+    @Column(name = "code")
+    private String code;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "description")
+    private String description;
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "status")
+    private boolean status;
+
+    public Rol() {
+    }
+
+    public Rol(Integer id) {
+        this.id = id;
+    }
+
+    public Rol(Integer id, String name, String description, boolean status) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.status = status;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (id != null ? id.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the id fields are not set
+        if (!(object instanceof Rol)) {
+            return false;
+        }
+        Rol other = (Rol) object;
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "py.com.audit.entity.Rol[ id=" + id + " ]";
+    }
+    
+}
+>>>>>>> 32d47b74d9d48a5e74dc4b3f24762222cca1cb51

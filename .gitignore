@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 *.jpg
 *.jpeg
 *.png
@@ -5,3 +6,6 @@
 target/
 src/main/resources/META-INF/persistence.xml
 *.svg
+=======
+/target/
+>>>>>>> 32d47b74d9d48a5e74dc4b3f24762222cca1cb51

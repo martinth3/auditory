@@ -1,0 +1,164 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/template.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:define name="title">
+        Crud compañia
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="form">
+            <p:growl id="messages" showDetail="true" />
+
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="New" icon="pi pi-plus" actionListener="#{companyManageBeans.cancelar()}"
+                                     update=":dialogs:manage-product-content" oncomplete="PF('managecompanyDialog').show()"
+                                     styleClass="ui-button-success" style="margin-right: .5rem">
+                        <p:resetInput target=":dialogs:manage-product-content" />
+                    </p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+
+            <p:dataTable id="dtCompany" widgetVar="companyTable" var="company" value="#{companyManageBeans.listaCompany}"
+                         reflow="true" styleClass="products-table" selection="#{companyManageBeans.selectedCompanys}"
+                         rowKey="#{company.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                <p:column headerText="Code" sortBy="#{company.codeCompany}" filterBy="#{company.codeCompany}">
+                    <h:outputText value="#{company.codeCompany}" />
+                </p:column>
+                <p:column headerText="Name" sortBy="#{company.name}" filterBy="#{company.name}">
+                    <h:outputText value="#{company.name}" />
+                </p:column>
+                <p:column headerText="Ruc" sortBy="#{company.ruc}" filterBy="#{company.ruc}">
+                    <h:outputText value="#{company.ruc}" ></h:outputText>
+                </p:column>
+                <p:column headerText="Direccion" sortBy="#{company.address}" filterBy="#{company.address}">
+                    <h:outputText value="#{company.address}" />
+                </p:column>
+                <p:column headerText="Contacto" sortBy="#{company.phone}" filterBy="#{company.phone}">
+                    <h:outputText  value="#{company.phone}" />
+                </p:column>
+                <p:column headerText="Status" sortBy="#{company.status}" filterBy="#{company.status}" style="text-align: center">
+                    <p:selectBooleanCheckbox value="#{company.status}" disabled="true" style="color: black"/>
+                </p:column>
+                <p:column exportable="false" width="70px" style="text-align: center">
+                    <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-product-content_u"
+                                     oncomplete="PF('managecompanyDialog_u').show()"
+                                     styleClass="edit-button rounded-button ui-button-success" process="@this">
+                        <f:setPropertyActionListener value="#{company}" target="#{companyManageBeans.companyselect}" />
+                        <p:resetInput target=":dialogs:manage-product-content" />
+                    </p:commandButton>
+                    <!--                    <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash" process="@this"
+                                                         actionListener="{companyManageBeans.eliminarCompany(company.ruc)}"  >
+                                            <p:confirm header="Confirmación" message="Desea borrar la información" icon="pi pi-info-circle" />
+                                            <p:resetInput target=":dialogs:manage-product-content" />
+                                        </p:commandButton>-->
+                    <p:commandButton oncomplete="PF('avisoEliminar').show()" icon="pi pi-trash" title="Eliminar" process="@this" class="ui-button-warning rounded-button">
+                        <f:setPropertyActionListener value="#{company}" target="#{companyManageBeans.companyAEliminar}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+        <p:confirmDialog hideEffect="clip" message="¿Esta Seguro que desea Eliminar el registro?" header="Aviso" severity="alert" widgetVar="avisoEliminar">
+            <p:commandButton value="Aceptar" icon="ui-icon-trash" action="#{companyManageBeans.eliminarCompany()}" update=":form :form:messages" oncomplete="PF('avisoEliminar').hide()"/>
+            <p:commandButton value="Cancelar" onclick="PF('avisoEliminar').hide()"/>
+        </p:confirmDialog>
+
+        <h:form id="dialogs">
+            <p:dialog header="Company Add" showEffect="fade" modal="true" widgetVar="managecompanyDialog"
+                      responsive="true">
+                <p:outputPanel id="manage-product-content" class="ui-fluid">
+                    <p:outputPanel rendered="#{not empty companyManageBeans.company}">
+                        <div class="grid formgrid">
+                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                                <p:outputLabel for="name">Nombre</p:outputLabel>
+                                <p:inputText id="name" value="#{companyManageBeans.company.name}" required="true"  />
+                            </div>
+
+                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                                <p:outputLabel for="ruc">Ruc</p:outputLabel>
+                                <!--  <p:inputText id="ruc" value="{companyManageBeans.company.ruc}" required="true"/>-->
+                                <p:inputMask id="ruc" value="#{companyManageBeans.company.ruc}" mask="99999999-9" validateMask="true" required="true"/>
+                            </div>
+                        </div>
+                        <div class="grid formgrid">
+                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                                <p:outputLabel for="phone">Contacto</p:outputLabel>
+                                <p:inputMask id="phone" value="#{companyManageBeans.company.phone}" mask="(+999) 99 999 9999" validateMask="true" />
+                            </div>
+                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                                <p:outputLabel for="address">Direccion</p:outputLabel>
+                                <p:inputText id="address" value="#{companyManageBeans.company.address}" required="true"/>
+                            </div>
+                        </div>
+
+                    </p:outputPanel>
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Save" icon="pi pi-check" actionListener="#{companyManageBeans.guardarCompany}"
+                                     update="manage-product-content" process="manage-product-content @this" >
+
+                        <p:resetInput target=":dialogs:manage-product-content" />
+                    </p:commandButton>
+                    <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('managecompanyDialog').hide()"
+                                     class="ui-button-secondary" type="button" />
+                </f:facet>
+            </p:dialog>
+
+            <p:dialog header="Company Edit" showEffect="fade" modal="true" widgetVar="managecompanyDialog_u"
+                      responsive="true">
+                <p:outputPanel id="manage-product-content_u" class="ui-fluid">
+                    <p:outputPanel rendered="#{not empty companyManageBeans.companyselect}">
+                        <div class="grid formgrid">
+                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                                <p:outputLabel for="rucM">Ruc</p:outputLabel>
+                                <p:inputText id="rucM" value="#{companyManageBeans.companyselect.ruc}" disabled="#{facesContext.renderResponse}"/>
+                            </div>
+                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                                <p:outputLabel for="nameM">Nombre</p:outputLabel>
+                                <p:inputText id="nameM" value="#{companyManageBeans.companyselect.name}" required="true"  />
+                            </div>
+
+                        </div>    
+                        <div class="grid formgrid">
+                            <div class="col-9 mb-2 lg:col-12 mb-lg-0">
+                                <p:outputLabel for="phoneM">Contacto</p:outputLabel>
+                                <p:inputMask id="phoneM" value="#{companyManageBeans.companyselect.phone}" mask="(+999) 99 999 9999" validateMask="true" />
+                            </div>
+                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                                <p:outputLabel for="addressM">Direccion</p:outputLabel>
+                                <p:inputText id="addressM" value="#{companyManageBeans.companyselect.address}" required="true"/>
+                            </div>
+                        </div>
+                        <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                            <p:outputLabel for="statusM">Status</p:outputLabel>
+                            <br/>
+                            <p:toggleSwitch id="statusM"  value="#{companyManageBeans.companyselect.status}"  >
+
+                                <p:ajax event="change" update="@this"/>
+
+                            </p:toggleSwitch>
+                        </div>
+                    </p:outputPanel>
+
+                </p:outputPanel>
+
+                <f:facet name="footer">
+                    <p:commandButton value="Save" icon="pi pi-check" actionListener="#{companyManageBeans.editarCompany}"
+                                     update="manage-product-content_u" process="manage-product-content_u @this" />
+                    <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('managecompanyDialog_u').hide()"
+                                     class="ui-button-secondary" type="button" />
+                </f:facet>
+            </p:dialog>
+
+            <p:confirmDialog global="true" showEffect="fade" width="300">
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check" />
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-secondary"
+                                 icon="pi pi-times" />
+            </p:confirmDialog>
+        </h:form>            
+    </ui:define>
+</ui:composition>
