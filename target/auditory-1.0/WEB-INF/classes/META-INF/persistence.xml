@@ -14,18 +14,15 @@
     <class>com.process.entity.Area</class>
     <class>py.com.audit.auditory.entity.Company</class>
     <class>py.com.audit.auditory.entity.Auditor</class>
-<<<<<<< HEAD
-=======
     <class>py.com.audit.entity.Rol</class>
     <class>py.com.audit.entity.UserRol</class>
     <class>py.com.audit.entity.Risk</class>
     <class>py.com.audit.entity.BranchOffice</class>
->>>>>>> 32d47b74d9d48a5e74dc4b3f24762222cca1cb51
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/audit"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>
       <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
-      <property name="javax.persistence.jdbc.password" value=""/>
+      <property name="javax.persistence.jdbc.password" value="sql$"/>
     </properties>
   </persistence-unit>
 </persistence>

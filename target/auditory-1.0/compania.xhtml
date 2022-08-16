@@ -72,26 +72,35 @@
                 <p:outputPanel id="manage-product-content" class="ui-fluid">
                     <p:outputPanel rendered="#{not empty companyManageBeans.company}">
                         <div class="grid formgrid">
-                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                            <div class="col-12 mb-2 lg:col-6 mb-lg-0">
                                 <p:outputLabel for="name">Nombre</p:outputLabel>
-                                <p:inputText id="name" value="#{companyManageBeans.company.name}" required="true"  />
-                            </div>
-
-                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
-                                <p:outputLabel for="ruc">Ruc</p:outputLabel>
-                                <!--  <p:inputText id="ruc" value="{companyManageBeans.company.ruc}" required="true"/>-->
-                                <p:inputMask id="ruc" value="#{companyManageBeans.company.ruc}" mask="99999999-9" validateMask="true" required="true"/>
+                                <p:inputText id="name" value="#{companyManageBeans.company.name}" required="true"/>
                             </div>
                         </div>
                         <div class="grid formgrid">
-                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                            <div class="col-6 mb-2 lg:col-6 mb-lg-0"> 
+                                <p:outputLabel for="ruc">Ruc</p:outputLabel>
+                                <p:inputMask id="ruc" value="#{companyManageBeans.company.ruc}" valueChangeListener="#{companyManageBeans.rucChangeListener}">
+                                    <p:ajax event="change" update="@this digito"/>                                    
+                                </p:inputMask>
+                                </div>
+                                <div class="col-2 mb-2 lg:col-2 mb-lg-0">
+                                    <p:outputLabel value="DV" />
+                                    <p:inputText id="digito" value="#{companyManageBeans.digitoVerificador}" disabled="true">
+                                    </p:inputText>
+                                </div>
+                            
+                        </div>   
+                        <div class="grid formgrid">
+                            <div class="col-9 mb-2 lg:col-4 mb-lg-0">
                                 <p:outputLabel for="phone">Contacto</p:outputLabel>
-                                <p:inputMask id="phone" value="#{companyManageBeans.company.phone}" mask="(+999) 99 999 9999" validateMask="true" />
+                                <p:inputText id="phone" value="#{companyManageBeans.company.phone}" required="true"  />
                             </div>
-                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                            <div class="col-12 mb-2 lg:col-7 mb-lg-0">
                                 <p:outputLabel for="address">Direccion</p:outputLabel>
                                 <p:inputText id="address" value="#{companyManageBeans.company.address}" required="true"/>
                             </div>
+
                         </div>
 
                     </p:outputPanel>
@@ -113,7 +122,7 @@
                 <p:outputPanel id="manage-product-content_u" class="ui-fluid">
                     <p:outputPanel rendered="#{not empty companyManageBeans.companyselect}">
                         <div class="grid formgrid">
-                            <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                            <div class="col-9 mb-2 lg:col-12 mb-lg-0">
                                 <p:outputLabel for="rucM">Ruc</p:outputLabel>
                                 <p:inputText id="rucM" value="#{companyManageBeans.companyselect.ruc}" disabled="#{facesContext.renderResponse}"/>
                             </div>
@@ -121,12 +130,11 @@
                                 <p:outputLabel for="nameM">Nombre</p:outputLabel>
                                 <p:inputText id="nameM" value="#{companyManageBeans.companyselect.name}" required="true"  />
                             </div>
-
                         </div>    
                         <div class="grid formgrid">
                             <div class="col-9 mb-2 lg:col-12 mb-lg-0">
                                 <p:outputLabel for="phoneM">Contacto</p:outputLabel>
-                                <p:inputMask id="phoneM" value="#{companyManageBeans.companyselect.phone}" mask="(+999) 99 999 9999" validateMask="true" />
+                                <p:inputText id="phoneM" value="#{companyManageBeans.companyselect.phone}" required="true"  />
                             </div>
                             <div class="col-12 mb-2 lg:col-12 mb-lg-0">
                                 <p:outputLabel for="addressM">Direccion</p:outputLabel>
@@ -136,10 +144,8 @@
                         <div class="col-12 mb-2 lg:col-12 mb-lg-0">
                             <p:outputLabel for="statusM">Status</p:outputLabel>
                             <br/>
-                            <p:toggleSwitch id="statusM"  value="#{companyManageBeans.companyselect.status}"  >
-
+                            <p:toggleSwitch id="statusM" value="#{companyManageBeans.companyselect.status}">
                                 <p:ajax event="change" update="@this"/>
-
                             </p:toggleSwitch>
                         </div>
                     </p:outputPanel>

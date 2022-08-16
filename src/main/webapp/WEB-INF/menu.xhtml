@@ -14,14 +14,16 @@
                         <p:menuitem id="m_dashboard" value="Dashboard" icon="pi pi-chart-bar" outcome="/index"/>
                         <p:submenu id="sb_admin" label="Administracion" icon="pi pi-fw pi-briefcase">
                             <p:menuitem id="m_compania" value="Compañia" icon="pi pi-building" outcome="/compania"/>
-                            <p:menuitem id="m_auditor" value="Auditor" icon="pi pi-user" outcome="/compania"/>
+                            <p:menuitem id="m_auditor" value="Auditor" icon="pi pi-user" outcome="/auditor"/>
+                            <p:menuitem id="m_rol" value="Rol" icon="pi pi-users" outcome="/rol"/>
                         </p:submenu>
                         <p:submenu id="sb_planificacion" label="planificación" icon="pi pi-calendar-times">
                             <p:submenu id="sb_Cargas" label="Carga de datos" icon="pi pi-folder-open">
                                 <p:menuitem id="m_dependencias" value="Dependencia" icon="pi pi-sitemap" outcome="/compania"/>
+                                <p:menuitem id="m_risk" value="Riesgos" icon="pi pi-exclamation-triangle" outcome="/risk"/>
                             </p:submenu>
                              <p:submenu id="sb_Procesos" label="Procesos" icon="pi pi-check-square">
-                                <p:menuitem id="m_proicesos" value="Auditoria" icon="pi pi-calendar-plus" outcome="/compania"/>
+                                <p:menuitem id="m_proicesos" value="Matriz" icon="pi pi-calendar-plus" outcome="/compania"/>
                             </p:submenu>
                         </p:submenu>
                     </pm:menu>

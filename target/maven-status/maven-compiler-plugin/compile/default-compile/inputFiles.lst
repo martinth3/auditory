@@ -1,28 +1,30 @@
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\auditexception\AuditEJBException.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\exceptions\PreexistingEntityException.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\Area.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\exceptions\NonexistentEntityException.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\Risk.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\ErrorMenssage\Message.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\Rol.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\manage_beans\AuditorManageBeans.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\model\GenericEJB.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\manage_beans\CompanyManageBeans.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\converter\CompanyConverter.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\JAXRSConfiguration.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\manage_beans\RiskManageBeans.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\model\CompanyModel.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\converter\UserRolConverter.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\DetailArea.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\GuestPreferences.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\UserRol.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\manage_beans\UserRolManageBeans.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\Auditor.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\model\AuditorModel.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\manage_beans\RolManageBeans.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\BranchOffice.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\exceptions\IllegalOrphanException.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\auditexception\AuditException.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\User.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\converter\RolConverter.java
-C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\Company.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/entity/Risk.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/manage_beans/AuditorManageBeans.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/manage_beans/RiskManageBeans.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/manage_beans/CompanyManageBeans.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/entity/UserRol.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/entity/Company.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/exceptions/IllegalOrphanException.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/ErrorMenssage/Message.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/entity/Area.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/entity/Auditor.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/converter/UserRolConverter.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/GuestPreferences.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/exceptions/NonexistentEntityException.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/model/AuditorModel.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/auditexception/AuditException.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/converter/RolConverter.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/manage_beans/RolManageBeans.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/exceptions/PreexistingEntityException.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/manage_beans/BranchManageBeans.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/converter/CompanyConverter.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/entity/User.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/entity/Rol.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/JAXRSConfiguration.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/manage_beans/UserRolManageBeans.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/model/CompanyModel.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/entity/UserRolPK.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/entity/DetailArea.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/auditexception/AuditEJBException.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/model/GenericEJB.java
+/home/ctm/projects/auditory/auditory-ctm/src/main/java/py/com/audit/entity/BranchOffice.java
