@@ -1,0 +1,61 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/template.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:define name="title">
+        Organigrama_arbol
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="form">
+            <p:growl id="msgs" showDetail="true"/>
+            <div class="card">
+                <p:treeTable id="dtTree" value="#{treeCompanyManageBeans.treeNode}" var="reg" >
+                    <p:column  headerText="Nombre" >
+                        <p:graphicImage style="margin-right: 4px" styleClass="pi pi-building" rendered="#{reg.nivel eq 1}"/>
+                        <p:graphicImage style="margin-right: 4px" styleClass="pi pi-sort-amount-down-alt" rendered="#{reg.nivel eq 2}"/>
+                        <p:graphicImage style="margin-right: 4px" styleClass="pi pi-briefcase" rendered="#{reg.nivel eq 3}"/>
+                        <p:graphicImage style="margin-right: 4px" styleClass="pi pi-check" rendered="#{reg.nivel eq 4}"/>
+                        <h:outputText value="#{reg.name}"/>
+                    </p:column>
+                     <p:column  headerText="Titulo" >
+                   
+                        <h:outputText value="#{reg.titulo}"/>
+                    </p:column>
+                
+                    <p:column headerText="Acciones" style="text-align: center" >
+                        <p:commandButton icon="pi pi-plus" title="Agregar" oncomplete="PF('managetreeDialog').show()" update=":dialogs:manage-product-content" rendered="#{reg.nivel ne 4}">
+                            <f:setPropertyActionListener value="#{reg}" target="#{treeCompanyManageBeans.selected}"/>
+                        </p:commandButton>
+                        <p:commandButton icon="pi pi-pencil" title="Editar" style="margin-left: 2px" rendered="#{reg.nivel ne 1}"/>
+                        <p:commandButton icon="pi pi-trash" title="Borrar" style="margin-left: 2px" rendered="#{reg.nivel ne 1}"/>
+                    </p:column>
+                </p:treeTable>
+            </div>
+        </h:form>
+        <h:form id="dialogs">
+            <p:dialog header="Agreagar nuevos registros" showEffect="fade" modal="true" widgetVar="managetreeDialog"
+                      responsive="true">
+                <p:outputPanel id="manage-product-content" class="ui-fluid">
+                    <div class="grid formgrid">
+                        <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                            <p:outputLabel for="descripcion">descripcion</p:outputLabel>
+                            <p:inputText id="descripcion" value="#{treeCompanyManageBeans.txtDesc}" required="true"  />
+                        </div>
+                    </div>
+                </p:outputPanel>
+                <f:facet name="footer">
+                    <p:commandButton value="Save" icon="pi pi-check" actionListener="#{treeCompanyManageBeans.insertar}"
+                                     update="manage-product-content" process="manage-product-content @this">
+                        <p:resetInput target=":dialogs:manage-product-content" />
+                    </p:commandButton>
+                    <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('managetreeDialog').hide()"
+                                     class="ui-button-secondary" type="button" />
+                </f:facet>
+            </p:dialog>
+        </h:form>
+
+    </ui:define>
+</ui:composition>

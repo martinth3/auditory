@@ -12,6 +12,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import org.primefaces.PrimeFaces;
 import org.primefaces.model.FilterMeta;
+import org.primefaces.model.TreeNode;
 import py.com.audit.model.GenericEJB;
 import py.com.audit.auditory.auditexception.AuditEJBException;
 import py.com.audit.entity.Company;
@@ -28,6 +29,7 @@ public class CompanyManageBeans implements Serializable {
     private GenericEJB gejb;
 
     private Company company = new Company();
+    private TreeNode<Company> companytree2;
     private Company companyselect = new Company();
     private Company companyAEliminar;
     private List<Company> listaCompany;
@@ -35,7 +37,6 @@ public class CompanyManageBeans implements Serializable {
     private List<FilterMeta> filterBy;
     private List<Company> selectedCompanys;
     private List<Company> companys;
-    private String ruc;
 
     public List<Company> getCompanys() {
         return companys;
@@ -43,14 +44,6 @@ public class CompanyManageBeans implements Serializable {
 
     public void setCompanys(List<Company> companys) {
         this.companys = companys;
-    }
-
-    public String getRuc() {
-        return ruc;
-    }
-
-    public void setRuc(String ruc) {
-        this.ruc = ruc;
     }
 
     public List<Company> getSelectedCompanys() {

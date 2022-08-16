@@ -18,6 +18,9 @@
     <class>py.com.audit.entity.UserRol</class>
     <class>py.com.audit.entity.Risk</class>
     <class>py.com.audit.entity.BranchOffice</class>
+    <class>py.com.audit.entity.VCompanyTree</class>
+    <class>py.com.audit.entity.Area</class>
+    <class>py.com.audit.entity.DetailArea</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/audit"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>

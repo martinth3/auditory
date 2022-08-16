@@ -7,6 +7,7 @@ package py.com.audit.entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author crixx
  */
 @Entity
-@Table(name = "detail_area")
+@Table(schema = "base", name = "detail_area")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "DetailArea.findAll", query = "SELECT d FROM DetailArea d"),
@@ -38,26 +39,20 @@ public class DetailArea implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 2147483647)
+    @Column(name = "description")
     private String description;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "status")
     private boolean status;
     @JoinColumn(name = "id_area", referencedColumnName = "id")
     @ManyToOne
-    private Area idArea;
-    @JoinColumn(name = "id_branch_office", referencedColumnName = "id")
-    @ManyToOne
-    private BranchOffice idBranchOffice;
-    @JoinColumn(name = "id_company", referencedColumnName = "id")
-    @ManyToOne
-    private Company idCompany;
-    @JoinColumn(name = "id_user_modify", referencedColumnName = "id_user")
-    @ManyToOne
-    private User idUserModify;
+    private Area area;
 
     public DetailArea() {
     }
@@ -96,36 +91,12 @@ public class DetailArea implements Serializable {
         this.status = status;
     }
 
-    public Area getIdArea() {
-        return idArea;
+    public Area getArea() {
+        return area;
     }
 
-    public void setIdArea(Area idArea) {
-        this.idArea = idArea;
-    }
-
-    public BranchOffice getIdBranchOffice() {
-        return idBranchOffice;
-    }
-
-    public void setIdBranchOffice(BranchOffice idBranchOffice) {
-        this.idBranchOffice = idBranchOffice;
-    }
-
-    public Company getIdCompany() {
-        return idCompany;
-    }
-
-    public void setIdCompany(Company idCompany) {
-        this.idCompany = idCompany;
-    }
-
-    public User getIdUserModify() {
-        return idUserModify;
-    }
-
-    public void setIdUserModify(User idUserModify) {
-        this.idUserModify = idUserModify;
+    public void setArea(Area area) {
+        this.area = area;
     }
 
     @Override
@@ -150,7 +121,7 @@ public class DetailArea implements Serializable {
 
     @Override
     public String toString() {
-        return "com.process.entity.DetailArea[ id=" + id + " ]";
+        return "py.com.audit.entity.DetailArea[ id=" + id + " ]";
     }
-    
+
 }

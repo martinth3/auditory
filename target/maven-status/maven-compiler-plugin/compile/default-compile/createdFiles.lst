@@ -4,6 +4,7 @@ py\com\audit\entity\BranchOffice.class
 py\com\audit\model\GenericEJB.class
 py\com\audit\auditory\GuestPreferences$Theme.class
 py\com\audit\entity\User.class
+py\com\audit\manage_beans\BranchManageBeans.class
 py\com\audit\manage_beans\RiskManageBeans.class
 py\com\audit\manage_beans\RolManageBeans.class
 py\com\audit\auditory\exceptions\PreexistingEntityException.class
@@ -19,8 +20,10 @@ py\com\audit\manage_beans\AuditorManageBeans.class
 py\com\audit\model\CompanyModel.class
 py\com\audit\auditory\ErrorMenssage\Message.class
 py\com\audit\auditory\exceptions\NonexistentEntityException.class
+py\com\audit\manage_beans\TreeCompanyManageBeans.class
 py\com\audit\manage_beans\UserRolManageBeans.class
 py\com\audit\auditory\auditexception\AuditException.class
+py\com\audit\entity\VCompanyTree.class
 py\com\audit\converter\UserRolConverter.class
 py\com\audit\entity\DetailArea.class
 py\com\audit\auditory\GuestPreferences.class

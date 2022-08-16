@@ -1,4 +1,3 @@
-
 package py.com.audit.entity;
 
 import java.io.Serializable;
@@ -21,14 +20,13 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author crixx
  */
 @Entity
-@Table(schema = "base",name = "branch_office")
+@Table(schema = "base", name = "branch_office")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BranchOffice.findAll", query = "SELECT b FROM BranchOffice b"),
     @NamedQuery(name = "BranchOffice.findById", query = "SELECT b FROM BranchOffice b WHERE b.id = :id"),
     @NamedQuery(name = "BranchOffice.findByName", query = "SELECT b FROM BranchOffice b WHERE b.name = :name"),
-    @NamedQuery(name = "BranchOffice.findByStatus", query = "SELECT b FROM BranchOffice b WHERE b.status = :status"),
-    @NamedQuery(name = "BranchOffice.findByIdCompany", query = "SELECT b FROM BranchOffice b WHERE b.idCompany = :idCompany")})
+    @NamedQuery(name = "BranchOffice.findByStatus", query = "SELECT b FROM BranchOffice b WHERE b.status = :status")})
 public class BranchOffice implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -37,21 +35,20 @@ public class BranchOffice implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "status")
     private boolean status;
-    
+
     @JoinColumn(name = "id_company", referencedColumnName = "id")
     private Company company;
-    
 
     public BranchOffice() {
     }
@@ -66,7 +63,7 @@ public class BranchOffice implements Serializable {
         this.status = status;
         this.company = company;
     }
-    
+
     public Integer getId() {
         return id;
     }
@@ -123,5 +120,5 @@ public class BranchOffice implements Serializable {
     public String toString() {
         return "py.com.audit.entity.BranchOffice[ id=" + id + " ]";
     }
-    
+
 }
