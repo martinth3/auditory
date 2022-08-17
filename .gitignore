@@ -2,6 +2,8 @@
 *.jpeg
 *.png
 *.bmp
-target/
-src/main/resources/META-INF/persistence.xml
+/target/
+/nbproject/private/
+/nbbuild/
+!**/src/main/resources/META-INF/persistence.xml
 *.svg
