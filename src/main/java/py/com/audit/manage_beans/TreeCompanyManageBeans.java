@@ -34,6 +34,14 @@ public class TreeCompanyManageBeans implements Serializable {
     private List<VCompanyTree> vCompanyTreeList;
     private String txtDesc;
     private VCompanyTree selected;
+    
+    @PostConstruct
+    public void init() {
+        if (treeNode==null) {
+           treeNode = cargarArbol(); 
+        }
+        
+    }
 
     public VCompanyTree getSelected() {
         return selected;
@@ -49,11 +57,6 @@ public class TreeCompanyManageBeans implements Serializable {
 
     public void setTxtDesc(String txtDesc) {
         this.txtDesc = txtDesc;
-    }
-
-    @PostConstruct
-    public void init() {
-        treeNode = cargarArbol();
     }
 
     public List<VCompanyTree> getvCompanyTreeList() {
