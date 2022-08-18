@@ -1,35 +1,27 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package py.com.audit.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author crixx
  */
 @Entity
-@Table(name = "branch_office")
+@Table(schema = "base", name = "branch_office")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "BranchOffice.findAll", query = "SELECT b FROM BranchOffice b"),
@@ -42,21 +34,22 @@ public class BranchOffice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @Column(name = "id")
     private Integer id;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
+    @Column(name = "name")
     private String name;
+
     @Basic(optional = false)
     @NotNull
+    @Column(name = "status")
     private boolean status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idBranchOffice")
-    private List<Area> areaList;
+
     @JoinColumn(name = "id_company", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Company idCompany;
-    @OneToMany(mappedBy = "idBranchOffice")
-    private List<DetailArea> detailAreaList;
+    private Company company;
 
     public BranchOffice() {
     }
@@ -65,10 +58,11 @@ public class BranchOffice implements Serializable {
         this.id = id;
     }
 
-    public BranchOffice(Integer id, String name, boolean status) {
+    public BranchOffice(Integer id, String name, boolean status, Company company) {
         this.id = id;
         this.name = name;
         this.status = status;
+        this.company = company;
     }
 
     public Integer getId() {
@@ -95,30 +89,12 @@ public class BranchOffice implements Serializable {
         this.status = status;
     }
 
-    @XmlTransient
-    public List<Area> getAreaList() {
-        return areaList;
+    public Company getCompany() {
+        return company;
     }
 
-    public void setAreaList(List<Area> areaList) {
-        this.areaList = areaList;
-    }
-
-    public Company getIdCompany() {
-        return idCompany;
-    }
-
-    public void setIdCompany(Company idCompany) {
-        this.idCompany = idCompany;
-    }
-
-    @XmlTransient
-    public List<DetailArea> getDetailAreaList() {
-        return detailAreaList;
-    }
-
-    public void setDetailAreaList(List<DetailArea> detailAreaList) {
-        this.detailAreaList = detailAreaList;
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     @Override
@@ -143,7 +119,7 @@ public class BranchOffice implements Serializable {
 
     @Override
     public String toString() {
-        return "com.process.entity.BranchOffice[ id=" + id + " ]";
+        return "py.com.audit.entity.BranchOffice[ id=" + id + " ]";
     }
-    
+
 }

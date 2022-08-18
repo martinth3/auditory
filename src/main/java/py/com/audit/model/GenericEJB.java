@@ -30,6 +30,7 @@ public class GenericEJB {
             return true;
         } catch (Exception e) {
             e.printStackTrace(System.err);
+             System.out.println("es este error 3");
             return false;
         }
     }

@@ -4,7 +4,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import  py.com.audit.ErrorMenssage.Message;
+import py.com.audit.ErrorMenssage.Message;
 import py.com.audit.auditexception.AuditEJBException;
 import py.com.audit.entity.Auditor;
 import py.com.audit.entity.Company;

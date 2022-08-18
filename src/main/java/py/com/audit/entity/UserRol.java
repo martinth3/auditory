@@ -7,10 +7,12 @@ package py.com.audit.entity;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
-import javax.persistence.EmbeddedId;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -22,82 +24,50 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @author crixx
  */
 @Entity
-@Table(name = "user_rol")
+@Table(schema = "base",name = "user_rol")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "UserRol.findAll", query = "SELECT u FROM UserRol u"),
-    @NamedQuery(name = "UserRol.findByIdUser", query = "SELECT u FROM UserRol u WHERE u.userRolPK.idUser = :idUser"),
-    @NamedQuery(name = "UserRol.findByIdRol", query = "SELECT u FROM UserRol u WHERE u.userRolPK.idRol = :idRol"),
-    @NamedQuery(name = "UserRol.findByIdCompany", query = "SELECT u FROM UserRol u WHERE u.userRolPK.idCompany = :idCompany"),
-    @NamedQuery(name = "UserRol.findByIdAuditor", query = "SELECT u FROM UserRol u WHERE u.userRolPK.idAuditor = :idAuditor"),
-    @NamedQuery(name = "UserRol.findByStatus", query = "SELECT u FROM UserRol u WHERE u.status = :status")})
+    @NamedQuery(name = "UserRol.findByStatus", query = "SELECT u FROM UserRol u WHERE u.status = :status"),
+    @NamedQuery(name = "UserRol.findById", query = "SELECT u FROM UserRol u WHERE u.id = :id")})
 public class UserRol implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @EmbeddedId
-    protected UserRolPK userRolPK;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Basic(optional = false)
+    @Column(name = "id")
+    private Integer id;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "status")
     private boolean status;
-    @JoinColumn(name = "id_auditor", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Auditor auditor;
-    @JoinColumn(name = "id_company", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
-    private Company company;
-    @JoinColumn(name = "id_rol", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_rol", referencedColumnName = "id")
     private Rol rol;
-    @JoinColumn(name = "id_user", referencedColumnName = "id_user", insertable = false, updatable = false)
-    @ManyToOne(optional = false)
+    @JoinColumn(name = "id_user", referencedColumnName = "id_user")
     private User user;
+    
 
     public UserRol() {
     }
 
-    public UserRol(UserRolPK userRolPK) {
-        this.userRolPK = userRolPK;
+    public UserRol(Integer id) {
+        this.id = id;
     }
 
-    public UserRol(UserRolPK userRolPK, boolean status) {
-        this.userRolPK = userRolPK;
+    public UserRol(Integer id, boolean status, Rol rol, User user) {
+        this.id = id;
         this.status = status;
+        this.rol = rol;
+        this.user = user;
     }
 
-    public UserRol(int idUser, int idRol, int idCompany, int idAuditor) {
-        this.userRolPK = new UserRolPK(idUser, idRol, idCompany, idAuditor);
+    public Integer getId() {
+        return id;
     }
 
-    public UserRolPK getUserRolPK() {
-        return userRolPK;
-    }
-
-    public void setUserRolPK(UserRolPK userRolPK) {
-        this.userRolPK = userRolPK;
-    }
-
-    public boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    public Auditor getAuditor() {
-        return auditor;
-    }
-
-    public void setAuditor(Auditor auditor) {
-        this.auditor = auditor;
-    }
-
-    public Company getCompany() {
-        return company;
-    }
-
-    public void setCompany(Company company) {
-        this.company = company;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Rol getRol() {
@@ -116,10 +86,18 @@ public class UserRol implements Serializable {
         this.user = user;
     }
 
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (userRolPK != null ? userRolPK.hashCode() : 0);
+        hash += (id != null ? id.hashCode() : 0);
         return hash;
     }
 
@@ -130,7 +108,7 @@ public class UserRol implements Serializable {
             return false;
         }
         UserRol other = (UserRol) object;
-        if ((this.userRolPK == null && other.userRolPK != null) || (this.userRolPK != null && !this.userRolPK.equals(other.userRolPK))) {
+        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
@@ -138,7 +116,7 @@ public class UserRol implements Serializable {
 
     @Override
     public String toString() {
-        return "com.process.entity.UserRol[ userRolPK=" + userRolPK + " ]";
+        return "py.com.audit.entity.UserRol[ id=" + id + " ]";
     }
     
 }

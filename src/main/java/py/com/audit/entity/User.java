@@ -28,7 +28,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import py.com.audit.entity.Company;
 
 /**
  *
@@ -81,8 +80,7 @@ public class User implements Serializable {
     @JoinColumn(name = "id_company", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Company idCompany;
-    @OneToMany(mappedBy = "idUserModify")
-    private List<DetailArea> detailAreaList;
+
 
     public User() {
     }
@@ -172,14 +170,7 @@ public class User implements Serializable {
         this.idCompany = idCompany;
     }
 
-    @XmlTransient
-    public List<DetailArea> getDetailAreaList() {
-        return detailAreaList;
-    }
 
-    public void setDetailAreaList(List<DetailArea> detailAreaList) {
-        this.detailAreaList = detailAreaList;
-    }
 
     @Override
     public int hashCode() {

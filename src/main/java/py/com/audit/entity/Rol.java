@@ -6,26 +6,25 @@
 package py.com.audit.entity;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
  * @author crixx
  */
 @Entity
+@Table(schema = "base",name = "rol")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Rol.findAll", query = "SELECT r FROM Rol r"),
@@ -40,22 +39,25 @@ public class Rol implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
+    @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
+    @Column(name = "name")
     private String name;
     @Size(max = 255)
+    @Column(name = "code")
     private String code;
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 255)
+    @Column(name = "description")
     private String description;
     @Basic(optional = false)
     @NotNull
+    @Column(name = "status")
     private boolean status;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rol")
-    private List<UserRol> userRolList;
 
     public Rol() {
     }
@@ -111,15 +113,6 @@ public class Rol implements Serializable {
         this.status = status;
     }
 
-    @XmlTransient
-    public List<UserRol> getUserRolList() {
-        return userRolList;
-    }
-
-    public void setUserRolList(List<UserRol> userRolList) {
-        this.userRolList = userRolList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
@@ -142,7 +135,7 @@ public class Rol implements Serializable {
 
     @Override
     public String toString() {
-        return "com.process.entity.Rol[ id=" + id + " ]";
+        return "py.com.audit.entity.Rol[ id=" + id + " ]";
     }
     
 }
