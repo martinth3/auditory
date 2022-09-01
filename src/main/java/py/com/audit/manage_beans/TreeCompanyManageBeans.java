@@ -52,7 +52,7 @@ public class TreeCompanyManageBeans implements Serializable {
     }
 
     @PostConstruct
-    public void init() {
+    public void init() { 
         treeNode = cargarArbol();
     }
 
@@ -195,7 +195,29 @@ public class TreeCompanyManageBeans implements Serializable {
     }
 
     public void modificar() {
-
+        
+         if (selected.getTabla().equals("branch_office")) {
+            BranchOffice branchOffice = null;
+                 try {
+                branchOffice = gejb.getEM().createNamedQuery("BranchOffice.findById", BranchOffice.class)
+                        .setParameter("id", selected.getIdTabla())
+                        .getSingleResult();
+            } catch (Exception e) {
+                System.out.println("es este error 1");
+                e.printStackTrace(System.err);
+            }
+            branchOffice.setName(txtDesc);
+            if (gejb.update(branchOffice)) {
+                cancelar();
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Registro agregado con exito"));
+                PrimeFaces.current().executeScript("PF('managetreeDialog').hide()");
+                PrimeFaces.current().ajax().update("form:msgs", "form:dtTree");
+                return;
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "Warning", "registro no agregado"));
+                PrimeFaces.current().ajax().update("form:msgs", "form:dtTree");
+            }
+        }
     }
 
     public void borrar() {

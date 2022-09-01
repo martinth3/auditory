@@ -15,7 +15,7 @@ import org.primefaces.event.ToggleEvent;
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.Visibility;
 import py.com.audit.model.AuditorModel;
-import py.com.audit.auditory.auditexception.AuditEJBException;
+import py.com.audit.auditexception.AuditEJBException;
 import py.com.audit.entity.Auditor;
 import py.com.audit.entity.Company;
 

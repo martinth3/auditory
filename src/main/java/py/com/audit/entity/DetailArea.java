@@ -53,6 +53,16 @@ public class DetailArea implements Serializable {
     @JoinColumn(name = "id_area", referencedColumnName = "id")
     @ManyToOne
     private Area area;
+    @JoinColumn(name = "id_company", referencedColumnName = "id")
+    @ManyToOne
+    private Company company;
+    @JoinColumn(name = "id_branch_office", referencedColumnName = "id")
+    @ManyToOne
+    private BranchOffice branchOffice;
+    @JoinColumn(name = "id_user_modify", referencedColumnName = "id_user")
+    @ManyToOne
+    private User userModify;
+    
 
     public DetailArea() {
     }
@@ -98,6 +108,31 @@ public class DetailArea implements Serializable {
     public void setArea(Area area) {
         this.area = area;
     }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public BranchOffice getBranchOffice() {
+        return branchOffice;
+    }
+
+    public void setBranchOffice(BranchOffice branchOffice) {
+        this.branchOffice = branchOffice;
+    }
+
+    public User getUserModify() {
+        return userModify;
+    }
+
+    public void setUserModify(User userModify) {
+        this.userModify = userModify;
+    }
+    
 
     @Override
     public int hashCode() {

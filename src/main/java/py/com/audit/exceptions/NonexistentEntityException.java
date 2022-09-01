@@ -1,4 +1,4 @@
-package py.com.audit.auditory.exceptions;
+package py.com.audit.exceptions;
 
 public class NonexistentEntityException extends Exception {
     public NonexistentEntityException(String message, Throwable cause) {

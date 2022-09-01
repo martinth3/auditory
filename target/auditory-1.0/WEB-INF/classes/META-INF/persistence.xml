@@ -4,16 +4,8 @@
   <persistence-unit name="AuditoriaDS" transaction-type="JTA">
     <jta-data-source>java:/jboss/datasources/AuditoriaDS</jta-data-source>
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    <class>com.process.entity.Company</class>
-    <class>com.process.entity.BranchOffice</class>
-    <class>com.process.entity.Rol</class>
-    <class>com.process.entity.Auditor</class>
-    <class>com.process.entity.UserRol</class>
-    <class>com.process.entity.DetailArea</class>
-    <class>com.process.entity.User</class>
-    <class>com.process.entity.Area</class>
-    <class>py.com.audit.auditory.entity.Company</class>
-    <class>py.com.audit.auditory.entity.Auditor</class>
+    <class>py.com.audit.entity.Company</class>
+    <class>py.com.audit.entity.Auditor</class>
     <class>py.com.audit.entity.Rol</class>
     <class>py.com.audit.entity.UserRol</class>
     <class>py.com.audit.entity.Risk</class>
@@ -21,6 +13,10 @@
     <class>py.com.audit.entity.VCompanyTree</class>
     <class>py.com.audit.entity.Area</class>
     <class>py.com.audit.entity.DetailArea</class>
+    <class>py.com.audit.entity.DetailMatrix</class>
+    <class>py.com.audit.entity.UserMatrix</class>
+    <class>py.com.audit.entity.Matrix</class>
+    <class>py.com.audit.entity.SubDetailMatriz</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/audit"/>
       <property name="javax.persistence.jdbc.user" value="postgres"/>

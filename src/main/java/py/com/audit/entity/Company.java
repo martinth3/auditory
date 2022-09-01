@@ -87,7 +87,7 @@ public class Company implements Serializable {
     @NotNull
     @Column(name = "status")
     private boolean status;
-
+    
     public Company() {
     }
 

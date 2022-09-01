@@ -1,0 +1,193 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="/WEB-INF/template.xhtml"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="title">
+        Matriz Auditoria
+    </ui:define>
+    <ui:define name="content">
+        <h:form id="form">
+            <p:growl id="messages" showDetail="true" />
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton value="New" icon="pi pi-plus" styleClass="ui-button-success" style="margin-right: .5rem" onclick="PF('crearAuditoria').show()">
+                        <p:resetInput target=""/>
+                    </p:commandButton>
+                </p:toolbarGroup>
+            </p:toolbar>
+            <p:dataTable id="dtCompany" widgetVar="companyTable" var="company" value="#{companyManageBeans.listaCompany}"
+                         reflow="true" styleClass="products-table" selection="#{companyManageBeans.selectedCompanys}"
+                         rowKey="#{company.id}" paginator="true" rows="10" rowSelectMode="add" paginatorPosition="bottom">
+                <p:column headerText="Area a Auditar" sortBy="#{company.codeCompany}" filterBy="#{company.codeCompany}">
+                    <h:outputText value="#{company.codeCompany}" />
+                </p:column>
+                <p:column headerText="Fecha Creacion" sortBy="#{company.name}" filterBy="#{company.name}">
+                    <h:outputText value="#{company.name}" />
+                </p:column>
+                <p:column headerText="Inicio" sortBy="#{company.ruc}" filterBy="#{company.ruc}">
+                    <h:outputText value="#{company.ruc}" ></h:outputText>
+                </p:column>
+                <p:column headerText="Fin" sortBy="#{company.address}" filterBy="#{company.address}">
+                    <h:outputText value="#{company.address}" />
+                </p:column>
+                <p:column headerText="Estado" sortBy="#{company.phone}" filterBy="#{company.phone}">
+                    <h:outputText  value="#{company.phone}" />
+                </p:column>
+                <p:column exportable="false" width="100px" style="text-align: center">
+                    <p:commandButton title="Clonar" icon="pi pi-copy" styleClass="edit-button rounded-button ui-button-success" process="@this" onclick="PF('crearAuditoria').show()">
+                        <f:setPropertyActionListener value="#{company}" target="#{companyManageBeans.companyselect}" />
+                        <p:resetInput target=""/>
+                    </p:commandButton>
+                    <p:commandButton title="Editar" icon="pi pi-pencil" styleClass="edit-button rounded-button ui-button-success" process="@this">
+                        <f:setPropertyActionListener value="#{company}" target="#{companyManageBeans.companyselect}" />
+                        <p:resetInput target=""/>
+                    </p:commandButton>
+                    <p:commandButton title="Eliminar" icon="pi pi-trash" process="@this" class="ui-button-warning rounded-button">
+                        <f:setPropertyActionListener value="#{company}" target="#{companyManageBeans.companyAEliminar}"/>
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form >
+        <h:form id="dialogs" prependId="false">
+            <p:dialog widgetVar="crearAuditoria" closable="false" position="top" modal="true">
+                <f:facet name="header">
+                    <h:outputText value="Crear Auditoria"/>
+                    <p:commandButton value="Guardar" onclick="PF('crearAuditoria').hide()" style="float: right"/>
+                    <p:commandButton value="Cancelar" onclick="PF('crearAuditoria').hide()" style="float: right; margin-right: 5px"/>
+                </f:facet>
+                <h:panelGrid width="100%">
+                    <h:panelGrid columns="2" style="text-align: center" width="100%">
+                    </h:panelGrid>
+                    <h:panelGrid columns="4" width="100%">
+                        <h:outputText rendered='false' value="Area a Auditar"/>
+                        <p:inputText rendered='false'/>
+                        <h:outputText value="Fecha"/>
+                        <p:calendar/>
+                        <h:outputText value="Inicio Auditoria"/>
+                        <p:calendar/>
+                        <h:outputText value="Fin Auditoria"/>
+                        <p:calendar/>
+                        <h:outputText value="Estado"/>
+                        <p:selectOneMenu>
+
+                            <f:selectItem itemLabel="Elegir" itemValue="#{null}"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <p:dataTable id="dtAreaAuditada" var="detail" value="#{matrizManageBean.detailMatrixList}" rows="100"
+                             rowKey="#{detail.id}" style="max-width: 80em">
+                    <p:column>
+                        <p:rowToggler/>
+                    </p:column>
+                    <p:column headerText="Compañia" >
+                        <h:outputText value="#{detail.company.name}" />
+                    </p:column>
+                    <p:column headerText="Sucursal">
+                        <h:outputText value="#{detail.branchOffice.name}"/>
+                    </p:column>
+                    <p:column headerText="Area">
+                        <h:outputText value="#{detail.area.description}"/>
+                    </p:column>
+                    <p:column headerText="Sub Area">
+                        <h:outputText value="#{detail.detailArea.description}"/>
+                    </p:column>
+                    <p:column width="70px">
+                        <f:facet name="header">
+                            <p:commandButton icon="pi pi-plus" onclick="PF('arbolmatrix').show()"/>
+                        </f:facet>
+                        <p:commandButton icon="pi pi-plus" onclick="PF('addEditDet').show()" update="pgAddEditDet">
+                            <f:setPropertyActionListener value="#{detail}" target="#{matrizManageBean.detailMatrixSelected}"/>
+                        </p:commandButton>
+                        <p:commandButton icon="pi pi-trash"/>
+                    </p:column>
+                    <p:rowExpansion>
+                        <p:dataTable id="auxilio" style="max-width: 80em" lazy="false" value="#{detail.subDetailMatrizList}" var="reg" rowKey="#{reg.id}">
+                            <p:column headerText="Riesgo">
+                                <h:outputText value="#{reg.risk.description}"/>
+                            </p:column>
+                            <p:column headerText="Causa">
+                                <h:outputText value="#{reg.cause}"/>
+                            </p:column>
+                            <p:column headerText="Efecto">
+                                <h:outputText value="#{reg.effect}"/>
+                            </p:column>
+                            <p:column headerText="Probabilidad">
+                                <h:outputText value="#{reg.probability}"/>
+                            </p:column>
+                            <p:column headerText="Impacto">
+                                <h:outputText value="#{reg.impact}"/>
+                            </p:column>
+                            <p:column headerText="Resultado">
+                                <h:outputText value="#{reg.result}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </p:rowExpansion>
+                </p:dataTable>
+            </p:dialog>
+            <p:dialog widgetVar="arbolmatrix" position="top" modal="true" height="400px" showHeader="false">
+                <p:treeTable id="dtTree" value="#{matrizManageBean.treeNode}" var="reg" style="max-width: 40em"
+                             selectionMode="single">
+                    <p:ajax event="select" listener="#{matrizManageBean.onRowSelectArea}" update=":form:messages dtAreaAuditada" oncomplete="PF('arbolmatrix').hide()"/>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Area"/>
+                            <p:commandButton icon="pi pi-times" onclick="PF('arbolmatrix').hide()" style="float: right" styleClass="rounded-button ui-button-flat ui-button-plain mr-2 mb-2"/>
+                        </f:facet>
+                        <p:graphicImage style="margin-right: 4px" styleClass="pi pi-building" rendered="#{reg.nivel eq 1}"/>
+                        <p:graphicImage style="margin-right: 4px" styleClass="pi pi-sort-amount-down-alt" rendered="#{reg.nivel eq 2}"/>
+                        <p:graphicImage style="margin-right: 4px" styleClass="pi pi-briefcase" rendered="#{reg.nivel eq 3}"/>
+                        <p:graphicImage style="margin-right: 4px" styleClass="pi pi-check" rendered="#{reg.nivel eq 4}"/>
+                        <h:outputText value="#{reg.name}"/>
+                    </p:column>
+                </p:treeTable>
+            </p:dialog>
+        </h:form>
+        <h:form prependId="false">
+            <p:dialog widgetVar="addEditDet" width="500px" position="top" header="Agregar Riesgos">
+                <h:panelGrid id="pgAddEditDet" width="100%" style="border: thin solid #CCC">
+                    <h:panelGrid columns="2" width="100%">
+                        <h:outputText value="Riesgo"/>
+                        <p:selectOneMenu id="advanced" value="#{matrizManageBean.subDetailMatriz.risk}" converter="riskConverter"
+                                         panelStyle="width:180px" var="c" style="width: 100%"
+                                         filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Selecciona" itemValue="#{null}"/>
+                            <f:selectItems value="#{matrizManageBean.riskList}" var="risk" itemLabel="#{risk.description}" itemValue="#{risk}"/>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Name"/>
+                                </f:facet>
+                                <h:outputText value="#{c.description}"/>
+                            </p:column>
+                        </p:selectOneMenu>
+                        <h:outputText value="Causa"/>
+                        <p:inputText value="#{matrizManageBean.subDetailMatriz.cause}" style="width: 100%"/>
+                        <h:outputText value="Efecto"/>
+                        <p:inputText value="#{matrizManageBean.subDetailMatriz.effect}" style="width: 100%"/>
+                        <h:outputText value="Probabilidad"/>
+                        <p:selectOneMenu value="#{matrizManageBean.subDetailMatriz.probability}" style="width: 100%">
+                            <f:selectItem itemLabel="Selecciona" itemValue=""/>
+                            <f:selectItem itemLabel="1" itemValue="1"/>
+                            <f:selectItem itemLabel="2" itemValue="2"/>
+                            <f:selectItem itemLabel="3" itemValue="3"/>
+                        </p:selectOneMenu>
+                        <h:outputText value="Impacto"/>
+                        <p:selectOneMenu value="#{matrizManageBean.subDetailMatriz.impact}" style="width: 100%">
+                            <f:selectItem itemLabel="Selecciona" itemValue=""/>
+                            <f:selectItem itemLabel="5" itemValue="5"/>
+                            <f:selectItem itemLabel="10" itemValue="10"/>
+                            <f:selectItem itemLabel="20" itemValue="20"/>
+                        </p:selectOneMenu>
+                        <h:outputText value="Resultado"/>
+                        <p:inputText value="#{matrizManageBean.subDetailMatriz.result}" style="width: 100%"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" width="100%" style="text-align: center">
+                        <p:commandButton value="Agregar" actionListener="#{matrizManageBean.probando()}" oncomplete="PF('addEditDet').hide()" update="pgAddEditDet dtAreaAuditada dtAreaAuditada:auxilio"/>
+                        <p:commandButton value="Cancelar" oncomplete="PF('addEditDet').hide()" actionListener="#{matrizManageBean.limpiarSubDet()}" update="pgAddEditDet dtAreaAuditada dtAreaAuditada:auxilio"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+            </p:dialog>
+        </h:form>
+    </ui:define>
+</ui:composition>

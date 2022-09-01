@@ -8,8 +8,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import py.com.audit.auditory.ErrorMenssage.Message;
-import py.com.audit.auditory.auditexception.AuditEJBException;
+import py.com.audit.ErrorMenssage.Message;
+import py.com.audit.auditexception.AuditEJBException;
 import py.com.audit.entity.Company;
 
 @Stateless

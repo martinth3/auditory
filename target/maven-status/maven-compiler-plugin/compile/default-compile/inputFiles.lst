@@ -2,6 +2,7 @@ C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\p
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\exceptions\PreexistingEntityException.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\Area.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\exceptions\NonexistentEntityException.java
+C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\manage_beans\MatrizManageBean.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\Risk.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\ErrorMenssage\Message.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\Rol.java
@@ -9,11 +10,13 @@ C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\p
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\model\GenericEJB.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\manage_beans\CompanyManageBeans.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\converter\CompanyConverter.java
+C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\SubDetailMatriz.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\JAXRSConfiguration.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\manage_beans\RiskManageBeans.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\manage_beans\BranchManageBeans.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\model\CompanyModel.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\manage_beans\TreeCompanyManageBeans.java
+C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\Matrix.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\converter\UserRolConverter.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\DetailArea.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\VCompanyTree.java
@@ -23,9 +26,11 @@ C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\p
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\Auditor.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\model\AuditorModel.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\manage_beans\RolManageBeans.java
+C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\DetailMatrix.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\BranchOffice.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\exceptions\IllegalOrphanException.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\auditexception\AuditException.java
+C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\converter\RiskConverter.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\User.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\converter\RolConverter.java
 C:\Users\crixx\Documents\NetBeansProjects\Nueva carpeta\auditory\src\main\java\py\com\audit\entity\Company.java

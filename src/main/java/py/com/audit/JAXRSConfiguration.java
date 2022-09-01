@@ -1,4 +1,4 @@
-package py.com.audit.auditory;
+package py.com.audit;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

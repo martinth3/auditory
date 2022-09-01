@@ -1,4 +1,4 @@
-package py.com.audit.auditory.auditexception;
+package py.com.audit.auditexception;
 import java.sql.SQLException;
 import java.util.List;
 

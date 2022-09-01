@@ -1,4 +1,4 @@
-package py.com.audit.auditory.ErrorMenssage;
+package py.com.audit.ErrorMenssage;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;

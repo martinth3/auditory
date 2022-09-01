@@ -1,4 +1,4 @@
-package py.com.audit.auditory.exceptions;
+package py.com.audit.exceptions;
 
 import java.util.ArrayList;
 import java.util.List;

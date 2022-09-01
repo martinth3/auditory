@@ -20,17 +20,43 @@
                         <p:graphicImage style="margin-right: 4px" styleClass="pi pi-check" rendered="#{reg.nivel eq 4}"/>
                         <h:outputText value="#{reg.name}"/>
                     </p:column>
-                     <p:column  headerText="Titulo" >
-                   
+                    <p:column  headerText="Titulo" >
+
                         <h:outputText value="#{reg.titulo}"/>
                     </p:column>
-                
+
                     <p:column headerText="Acciones" style="text-align: center" >
-                        <p:commandButton icon="pi pi-plus" title="Agregar" oncomplete="PF('managetreeDialog').show()" update=":dialogs:manage-product-content" rendered="#{reg.nivel ne 4}">
+<!--                        <p:commandButton icon="pi pi-plus" title="Agregar" oncomplete="PF('managetreeDialog').show()" update=":dialogs:manage-product-content" rendered="#{reg.nivel ne 4}">
                             <f:setPropertyActionListener value="#{reg}" target="#{treeCompanyManageBeans.selected}"/>
                         </p:commandButton>
-                        <p:commandButton icon="pi pi-pencil" title="Editar" style="margin-left: 2px" rendered="#{reg.nivel ne 1}"/>
-                        <p:commandButton icon="pi pi-trash" title="Borrar" style="margin-left: 2px" rendered="#{reg.nivel ne 1}"/>
+                        <p:commandButton icon="pi pi-pencil" title="Editar" oncomplete="PF('managetreeDialog_u').show()" 
+                                         update=":dialogs:manage-product-content" style="margin-left: 2px" rendered="#{reg.nivel ne 1}">
+                            <f:setPropertyActionListener value="#{reg}" target="#{treeCompanyManageBeans.selected}"/>
+                        </p:commandButton>
+                        <p:commandButton icon="pi pi-trash" title="Borrar" style="margin-left: 2px" rendered="#{reg.nivel ne 1}"/>-->
+                        
+                        <p:commandButton icon="pi pi-plus" title="Agregar" oncomplete="PF('managetreeDialog').show()" update=":dialogs:manage-product-content" rendered="#{reg.nivel ne 4}"
+                                         styleClass="rounded-button ui-button-success mr-2 mb-2">
+                            <f:setPropertyActionListener value="#{reg}" target="#{treeCompanyManageBeans.selected}"/>
+                        </p:commandButton>
+                        <p:commandButton icon="pi pi-pencil" title="Editar" oncomplete="PF('managetreeDialog_u').show()" 
+                                         update=":dialogs:manage-product-content" style="margin-left: 2px; background-color: #3e1046; border-color: #3e1046" rendered="#{reg.nivel ne 1}"
+                                         styleClass="rounded-button ui-button-info mr-2 mb-2">
+                            <f:setPropertyActionListener value="#{reg}" target="#{treeCompanyManageBeans.selected}"/>
+                        </p:commandButton>
+                        <p:commandButton icon="pi pi-trash" title="Borrar" style="margin-left: 2px" rendered="#{reg.nivel ne 1}" styleClass="rounded-button ui-button-danger mr-2 mb-2"/>
+                        
+<!--                        <p:commandButton icon="pi pi-plus" title="Agregar" oncomplete="PF('managetreeDialog').show()" update=":dialogs:manage-product-content" rendered="#{reg.nivel ne 4}" styleClass="rounded-button ui-button-outlined mr-2 mb-2">
+                            <f:setPropertyActionListener value="#{reg}" target="#{treeCompanyManageBeans.selected}"/>
+                        </p:commandButton>
+                        
+                        <p:commandButton icon="pi pi-pencil" title="Editar" oncomplete="PF('managetreeDialog_u').show()" 
+                                         update=":dialogs:manage-product-content" style="margin-left: 2px" rendered="#{reg.nivel ne 1}"
+                                         styleClass="rounded-button ui-button-info ui-button-outlined mr-2 mb-2">
+                            <f:setPropertyActionListener value="#{reg}" target="#{treeCompanyManageBeans.selected}"/>
+                        </p:commandButton>
+                        
+                        <p:commandButton icon="pi pi-trash" title="Borrar" style="margin-left: 2px" rendered="#{reg.nivel ne 1}" styleClass="rounded-button ui-button-danger ui-button-outlined mr-2 mb-2"/>-->
                     </p:column>
                 </p:treeTable>
             </div>
@@ -55,7 +81,32 @@
                                      class="ui-button-secondary" type="button" />
                 </f:facet>
             </p:dialog>
+                        
+                 <p:dialog header="editar nuevos registros" showEffect="fade" modal="true" widgetVar="managetreeDialog_u"
+                      responsive="true">
+                <p:outputPanel id="manage-product-content_u" class="ui-fluid">
+                
+                    <div class="grid formgrid">
+                        <div class="col-12 mb-2 lg:col-12 mb-lg-0">
+                            <p:outputLabel for="descripcion_u">descripcion</p:outputLabel>
+                            <p:inputText id="descripcion_u" value="#{treeCompanyManageBeans.selected.name}" required="true"  />
+                        </div>
+                    </div>
+                        </p:outputPanel>
+        
+                <f:facet name="footer">
+                    <p:commandButton value="Save" icon="pi pi-check" actionListener="#{treeCompanyManageBeans.modificar()}"
+                                     update="manage-product-content_u" process="manage-product-content_u @this">
+                        <p:resetInput target=":dialogs:manage-product-content_u" />
+                    </p:commandButton>
+                    <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('managetreeDialog_u').hide()"
+                                     class="ui-button-secondary" type="button" />
+                </f:facet>
+            </p:dialog>           
         </h:form>
+
+            
+     
 
     </ui:define>
 </ui:composition>

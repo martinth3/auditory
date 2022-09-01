@@ -3,7 +3,6 @@ package py.com.audit.manage_beans;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Date;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -13,9 +12,10 @@ import javax.faces.view.ViewScoped;
 import org.primefaces.PrimeFaces;
 import org.primefaces.model.FilterMeta;
 import py.com.audit.model.GenericEJB;
-import py.com.audit.auditory.auditexception.AuditEJBException;
+import py.com.audit.auditexception.AuditEJBException;
+import py.com.audit.entity.Company;
 import py.com.audit.entity.Risk;
-import py.com.audit.entity.Rol;
+import py.com.audit.entity.User;
 
 /**
  *
@@ -128,9 +128,12 @@ public class RiskManageBeans implements Serializable {
 
     public void guardarRisk() throws AuditEJBException {
         try {
-
-            risk.setUserCreate(43);
-            risk.setCompanyRisk(7);
+            
+            User user = gejb.getEM().find(User.class, 43);
+            Company company = gejb.getEM().find(Company.class, 7);
+            
+            risk.setUserCreate(user);
+            risk.setCompany(company);
             gejb.insert(risk);
             listarisk = null;
             getListarisk();

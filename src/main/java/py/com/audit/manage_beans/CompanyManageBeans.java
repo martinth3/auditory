@@ -14,7 +14,7 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.model.FilterMeta;
 import org.primefaces.model.TreeNode;
 import py.com.audit.model.GenericEJB;
-import py.com.audit.auditory.auditexception.AuditEJBException;
+import py.com.audit.auditexception.AuditEJBException;
 import py.com.audit.entity.Company;
 
 /**
